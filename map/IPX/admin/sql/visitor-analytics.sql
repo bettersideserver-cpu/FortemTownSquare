@@ -1,4 +1,4 @@
--- Run once in the SQL Editor of the existing Fortem Townsquare Supabase project.
+-- Run once in the SQL Editor of the existing FortmenTownsquare Supabase project.
 -- Re-running this file is safe. Existing registration and property tables are unchanged.
 begin;
 

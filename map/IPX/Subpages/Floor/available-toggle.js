@@ -1,4 +1,4 @@
-/* Fortem Townsquare — custom floor dropdown + AVAILABLE ON/OFF + OFF-SVG navigation */
+/* FortmenTownsquare — custom floor dropdown + AVAILABLE ON/OFF + OFF-SVG navigation */
 (function () {
   'use strict';
 
@@ -129,7 +129,7 @@
     const floor = String(parseInt(f, 10) || 1);
 
     sessionStorage.setItem('selectedFloor', floor);
-    sessionStorage.setItem('heroHomesFloor', floor);
+    sessionStorage.setItem('fortmenTownsquareFloor', floor);
 
     const u = new URL(location.href);
     u.searchParams.set('floor', floor);
@@ -181,9 +181,9 @@
         if (!unit) return;
 
         sessionStorage.setItem('selectedTower', tower);
-        sessionStorage.setItem('heroHomesTower', tower);
+        sessionStorage.setItem('fortmenTownsquareTower', tower);
         sessionStorage.setItem('selectedFloor', String(currentFloor));
-        sessionStorage.setItem('heroHomesFloor', String(currentFloor));
+        sessionStorage.setItem('fortmenTownsquareFloor', String(currentFloor));
         sessionStorage.setItem('selectedUnit', unit);
 
         const target = document.querySelector(

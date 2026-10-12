@@ -1,4 +1,4 @@
-/* Fortem Townsquare — mobile background/SVG lock-in-sync fix
+/* FortmenTownsquare — mobile background/SVG lock-in-sync fix
  *
  * Problem: on mobile the background photo (object-fit: cover) and the
  * apartment SVG overlay (preserveAspectRatio="xMidYMid slice") were each

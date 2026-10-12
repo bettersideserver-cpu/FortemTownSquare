@@ -13,7 +13,7 @@ http.createServer(async (request, response) => {
     if (!url.pathname.startsWith('/preview/')) { response.writeHead(404).end(); return; }
     const relative = decodeURIComponent(url.pathname.slice('/preview/'.length));
     // Public-page layout previews must not create visitors in the live database.
-    if (relative === 'map/IPX/JS/HeroHomesAnalytics.js') {
+    if (relative === 'map/IPX/JS/FortmenTownsquareAnalytics.js') {
       response.writeHead(200, { 'Content-Type': 'text/javascript', 'Cache-Control': 'no-store' });
       response.end('// Visitor tracking is disabled in the local fixture preview.');
       return;

@@ -1,4 +1,4 @@
-Fortem Townsquare - SVG CLICK FIX
+FortmenTownsquare - SVG CLICK FIX
 
 FIXES INCLUDED
 1. Disabled the legacy OFF-mode navigation in available-toggle.js that was competing with data-page-link.

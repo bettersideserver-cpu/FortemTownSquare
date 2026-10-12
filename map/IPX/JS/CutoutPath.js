@@ -1,4 +1,4 @@
-// Fortem Townsquare floor navigation: use the displayed floor name first.
+// FortmenTownsquare floor navigation: use the displayed floor name first.
 (function () {
   const paths = document.querySelectorAll(".Cutout path[data-link]");
 
@@ -12,11 +12,16 @@
 
       // Example: "12_Floor_24" -> 24; "Floor_08" -> 8
       const nameMatch = name.match(/(?:^|_)Floor[_ -]?(\d+)$/i);
-      let floor = nameMatch ? Number(nameMatch[1]) : Number(path.getAttribute("floorNumber"));
+      const floor = nameMatch ? Number(nameMatch[1])
+        : Number(path.getAttribute("floorNumber") || path.getAttribute("floornumber"));
 
-      // Example: "Floor/Tower-12.html" -> 12; "Tower_B.html" -> B
-      const linkMatch = link.match(/Tower[-_]?([A-Z]|\d+A?)\.html(?:$|[?#])/i);
-      let tower = linkMatch ? linkMatch[1] : "";
+      const target = new URL(link, window.location.href);
+      const filename = target.pathname.split('/').pop();
+      // Retail floor plans use Tower-AF/BF/CF; older plans use numeric names.
+      const retailMatch = filename.match(/^Tower-([ABC])F\.html$/i);
+      const legacyMatch = filename.match(/^Tower[-_]?(C-12-A|[A-Z]|\d+A?)\.html$/i);
+      let tower = retailMatch?.[1] || legacyMatch?.[1] || "";
+      if (tower.toUpperCase() === 'C-12-A') tower = '12A';
 
       // Fallback for names like "12_Floor_24"
       if (!tower) {
@@ -24,7 +29,7 @@
         if (towerMatch) tower = towerMatch[1];
       }
 
-      tower = String(tower).replace(/^Tower[-_ ]?/i, "").trim();
+      tower = String(tower).replace(/^Tower[-_ ]?/i, "").trim().toUpperCase();
 
       if (!tower || !Number.isInteger(floor) || floor < 1 || floor > 32) {
         console.warn("Floor navigation stopped:", { name, link, tower, floor });
@@ -33,13 +38,13 @@
 
       sessionStorage.setItem("selectedTower", tower);
       sessionStorage.setItem("selectedFloor", String(floor));
-      sessionStorage.setItem("heroHomesTower", tower);
-      sessionStorage.setItem("heroHomesFloor", String(floor));
+      sessionStorage.setItem("fortmenTownsquareTower", tower);
+      sessionStorage.setItem("fortmenTownsquareFloor", String(floor));
 
       paths.forEach((p) => p.classList.remove("selected"));
       path.classList.add("selected");
 
-      const target = new URL(link, window.location.href);
+      target.searchParams.set("tower", tower);
       target.searchParams.set("floor", String(floor));
 
       window.location.href = target.href;

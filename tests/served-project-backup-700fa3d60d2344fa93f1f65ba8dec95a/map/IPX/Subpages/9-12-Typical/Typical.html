@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-hero-homes-visitor-gate="true">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -1075,7 +1075,7 @@ background: rgba(18,35,30,.94);
 </style>
 
 <style>
-/* Fortem Townsquare — Red & White theme */
+/* FortmenTownsquare — Red & White theme */
 /* ===== Red & White Tour Theme ===== */
 
 /* Back button */
@@ -1691,7 +1691,7 @@ background: rgba(18,35,30,.94);
 </style>
 
 </head>
-    <script src="../../JS/HeroHomesLeadCaptureGlobal.js"></script>
+
 </head>
 
 <body>
@@ -1699,138 +1699,14 @@ background: rgba(18,35,30,.94);
      REQUEST TO HOLD BUTTON
 ========================================= -->
 
-<button id="holdRequestBtn">
-    <svg viewBox="0 0 24 24" fill="none"
-         xmlns="http://www.w3.org/2000/svg">
-        <path
-            d="M6 4H18V20H6V4Z"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linejoin="round"/>
-        <path
-            d="M9 8H15"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"/>
-        <path
-            d="M9 12H15"
-            stroke="currentColor"
-            stroke-width="1.8"
-            stroke-linecap="round"/>
-    </svg>
 
-    <span>REQUEST TO HOLD</span>
-</button>
 
 
 <!-- =========================================
      REQUEST TO HOLD OVERLAY
 ========================================= -->
 
-<div id="holdOverlay">
 
-    <div id="holdCard">
-
-        <!-- Close -->
-        <button id="holdClose">
-
-            <svg viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="2"
-                 stroke-linecap="round">
-
-                <path d="M6 6L18 18"/>
-                <path d="M18 6L6 18"/>
-
-            </svg>
-
-        </button>
-
-
-        <h2>Request to Hold</h2>
-
-        <p class="hold-subtitle">
-            Submit your details and our team will contact you
-            regarding the selected property.
-        </p>
-
-
-        <!-- Selected Room -->
-
-        <div id="selectedRoom">
-            Selected:
-            <strong id="holdRoomName">Lobby</strong>
-        </div>
-
-
-        <!-- Name -->
-
-        <div class="hold-field">
-
-            <label>Full Name</label>
-
-            <input
-                type="text"
-                id="holdName"
-                placeholder="Enter your full name"
-                autocomplete="name">
-
-        </div>
-
-
-        <!-- Phone -->
-
-        <div class="hold-field">
-
-            <label>Phone Number</label>
-
-            <input
-                type="tel"
-                id="holdPhone"
-                placeholder="Enter your phone number"
-                autocomplete="tel">
-
-        </div>
-
-
-        <!-- Email -->
-
-        <div class="hold-field">
-
-            <label>Email Address</label>
-
-            <input
-                type="email"
-                id="holdEmail"
-                placeholder="Enter your email"
-                autocomplete="email">
-
-        </div>
-
-
-        <!-- Message -->
-
-        <div class="hold-field">
-
-            <label>Message</label>
-
-            <textarea
-                id="holdMessage"
-                placeholder="Any specific requirement?"></textarea>
-
-        </div>
-
-
-        <!-- Submit -->
-
-        <button id="submitHoldBtn">
-            SUBMIT REQUEST
-        </button>
-
-    </div>
-
-</div>
 
     <!-- Balcony floor selector: visible only while the balcony panorama is active -->
     <div id="balconyControls">
@@ -1957,7 +1833,7 @@ background: rgba(18,35,30,.94);
             </svg>
             <span>Bathroom 2</span>
         </button>
-        
+
                    <button class="tour-pill" onclick="goToRoom('bathroom_3', this)">
             <svg viewBox="0 0 24 24" fill="none">
                 <path d="M3 12V8H21V12" stroke="currentColor" stroke-width="1.8" />
@@ -1965,7 +1841,7 @@ background: rgba(18,35,30,.94);
             </svg>
             <span>Bathroom 3</span>
         </button>
-        
+
                    <button class="tour-pill" onclick="goToRoom('bathroom_4', this)">
             <svg viewBox="0 0 24 24" fill="none">
                 <path d="M3 12V8H21V12" stroke="currentColor" stroke-width="1.8" />
@@ -1973,8 +1849,8 @@ background: rgba(18,35,30,.94);
             </svg>
             <span>Bathroom 4</span>
         </button>
-        
-        
+
+
                    <!-- <button class="tour-pill" onclick="goToRoom('pool', this)">
             <svg viewBox="0 0 24 24" fill="none">
                 <path d="M3 12V8H21V12" stroke="currentColor" stroke-width="1.8" />
@@ -2013,13 +1889,11 @@ background: rgba(18,35,30,.94);
     </button>
     </div>
 
-    
+
 
     <div id="fadeOverlay"></div>
 
-<script>
-/* Request-to-Hold is handled by JS/HeroHomesLeadCaptureGlobal.js. */
-</script>
+
 
 <script>
 const selectedFloor = sessionStorage.getItem("selectedFloor") || "01";
@@ -2442,7 +2316,7 @@ const rooms = {
         }
 
         function updateBalconyControls(roomName) {
-            window.HeroHomesAnalytics?.trackRoom(roomName, { balconyType, balconyFloor: currentBalconyFloor });
+            window.FortmenTownsquareAnalytics?.trackRoom(roomName, { balconyType, balconyFloor: currentBalconyFloor });
             updateActiveRoomPill(roomName);
             const controls = document.getElementById("balconyControls");
             if (!controls) return;
@@ -2499,7 +2373,7 @@ const rooms = {
 
         // ── Helpers ──
         function addHotspot(from, to, yaw, pitch, text) {
-            
+
             const spot = new PANOLENS.Infospot(500, ARROW_ICON);
             const r = 5000;
             const phi = THREE.MathUtils.degToRad(90 - pitch);
@@ -2635,7 +2509,7 @@ function goToRoom(roomName, btn, requestedBalconyType = balconyType) {
 
 
 
-       
+
  addHotspot("kitchen", "dinning", -50, -10, "Dinning");
 
 
@@ -2646,7 +2520,7 @@ addHotspot("room_2", "balcony", -75, -6, "balcony ");
 addHotspot("room_1", "balcony", -75, -6, "balcony ");
 
 addHotspot("bathroom_2", "room_1", -150, -6, "Master Bedroom ");
-       
+
 addHotspot("room_1", "bathroom_2", -121, -6, "Bathroom ");
         addHotspot("room_1", "lobby", 100, -6, "Lobby");
 
@@ -2662,10 +2536,10 @@ addHotspot("bathroom_3", "room_3", -70, -6, "Kids Room ");
 
 
    addHotspot("bathroom_1", "room_2", -70, -6, "Grandparent's Room ");
-   
+
    addHotspot("room_2", "bathroom_1", -209, -6, "Bathroom ");
         addHotspot("room_2", "lobby", 100, -6, "Lobby");
-    
+
 
         addHotspot("balcony", "room_1", -130, -6, "Master Bedroom");
 
@@ -2802,7 +2676,7 @@ document.getElementById("backBtn").addEventListener("click", function (e) {
         });
 </script>
 
-<script type="module" src="../../JS/HeroHomesAnalytics.js"></script>
+<script type="module" src="../../JS/FortmenTownsquareAnalytics.js"></script>
 </body>
 
 </html>

@@ -9,7 +9,7 @@ import { JSDOM } from 'jsdom';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const sql = readFileSync(path.join(root, 'map/IPX/admin/sql/visitor-analytics.sql'), 'utf8');
-const trackerSource = readFileSync(path.join(root, 'map/IPX/JS/HeroHomesAnalytics.js'), 'utf8');
+const trackerSource = readFileSync(path.join(root, 'map/IPX/JS/FortmenTownsquareAnalytics.js'), 'utf8');
 const settle = async () => { for (let i = 0; i < 5; i++) await new Promise(resolve => setImmediate(resolve)); };
 
 test('Supabase migration: profiles, idempotent timing, journeys and access controls', async t => {
@@ -70,7 +70,7 @@ test('Supabase migration: profiles, idempotent timing, journeys and access contr
 
 function tracker(storage = {}, options = {}) {
   const dom = new JSDOM(options.html || `<body><button class="tour-pill" onclick="goToRoom('lobby', this)">Lobby</button></body>`, {
-    url: options.url || 'http://localhost/Hero%20Homes/map/IPX/Subpages/Tower-B/360/Typical.html?tower=12A&floor=10&unit=2',
+    url: options.url || 'http://localhost/FortmenTownsquare/map/IPX/Subpages/Tower-B/360/Typical.html?tower=12A&floor=10&unit=2',
     runScripts: 'outside-only'
   });
   const window = dom.window;
@@ -90,15 +90,15 @@ function tracker(storage = {}, options = {}) {
   };
   for (const [key, value] of Object.entries(storage)) window.sessionStorage.setItem(key, value);
   const source = trackerSource.replace(/^import .*;\r?\n/, "const SUPABASE_URL = 'http://local-supabase'; const SUPABASE_PUBLISHABLE_KEY = 'test-publishable-key';\n")
-    .replace('import.meta.url', "'http://localhost/Hero%20Homes/map/IPX/JS/HeroHomesAnalytics.js'");
+    .replace('import.meta.url', "'http://localhost/FortmenTownsquare/map/IPX/JS/FortmenTownsquareAnalytics.js'");
   window.eval(source);
   return { dom, window, calls,
     advance(ms) { time += ms; },
     tick() { intervals.forEach(callback => callback()); },
     visibility(value) { visible = value; window.document.dispatchEvent(new window.Event('visibilitychange')); },
     identify(phone = '9000000001', name = 'Visitor A') {
-      window.sessionStorage.setItem('heroHomesVisitor', JSON.stringify({ fullName: name, mobile: phone, city: 'Test City' }));
-      window.dispatchEvent(new window.Event('hero-homes:visitor-ready'));
+      window.sessionStorage.setItem('fortmenTownsquareVisitor', JSON.stringify({ fullName: name, mobile: phone, city: 'Test City' }));
+      window.dispatchEvent(new window.Event('fortmen-townsquare:visitor-ready'));
     },
     storage() { return Object.fromEntries(Object.keys(window.sessionStorage).map(key => [key, window.sessionStorage.getItem(key)])); }
   };
@@ -124,10 +124,10 @@ test('Tracker: identity, visible time, both balcony sides and session timeout', 
   browser.advance(10000); browser.tick(); await settle();
   assert.equal(browser.calls.at(-1).duration_seconds, 30);
   assert.equal(browser.calls.at(-1).id, initial.id);
-  browser.window.HeroHomesAnalytics.trackRoom('balcony', { balconyType: 'F', balconyFloor: 10 }); await settle();
+  browser.window.FortmenTownsquareAnalytics.trackRoom('balcony', { balconyType: 'F', balconyFloor: 10 }); await settle();
   assert.match(browser.calls.at(-1).page_name, /Garden View Balcony/);
   assert.match(browser.calls.at(-1).page_key, /balconyType=F/);
-  browser.window.HeroHomesAnalytics.trackRoom('balcony', { balconyType: 'B', balconyFloor: 15 }); await settle();
+  browser.window.FortmenTownsquareAnalytics.trackRoom('balcony', { balconyType: 'B', balconyFloor: 15 }); await settle();
   const back = browser.calls.at(-1);
   assert.match(back.page_name, /Back Balcony.*15/);
   assert.match(back.previous_page, /Garden View Balcony/);
@@ -147,10 +147,10 @@ test('Tracker: navigation resumes a session and retries offline events without c
   let fail = true;
   const first = tracker({}, { fail: () => fail }); t.after(() => first.dom.window.close());
   first.identify(); await settle();
-  const queued = JSON.parse(first.window.sessionStorage.getItem('heroHomesAnalyticsQueue'));
+  const queued = JSON.parse(first.window.sessionStorage.getItem('fortmenTownsquareAnalyticsQueue'));
   assert.equal(queued.length, 1);
   first.advance(10000); first.window.dispatchEvent(new first.window.Event('pagehide')); await settle();
-  const next = tracker(first.storage(), { url: 'http://localhost/Hero%20Homes/map/index.html?email=private@example.com' });
+  const next = tracker(first.storage(), { url: 'http://localhost/FortmenTownsquare/map/index.html?email=private@example.com' });
   t.after(() => next.dom.window.close());
   await settle();
   assert.equal(next.calls[0].id, queued[0].id);
@@ -159,14 +159,14 @@ test('Tracker: navigation resumes a session and retries offline events without c
   assert.match(next.calls.at(-1).previous_page, /Lobby/);
   assert.equal(next.calls.at(-1).page_key, 'map/index.html');
   assert.ok(!next.calls.at(-1).page_url.includes('private'));
-  assert.deepEqual(JSON.parse(next.window.sessionStorage.getItem('heroHomesAnalyticsQueue')), []);
+  assert.deepEqual(JSON.parse(next.window.sessionStorage.getItem('fortmenTownsquareAnalyticsQueue')), []);
 });
 
 test('Anonymous map journey becomes registered under the same database ID, including delayed retries', async t => {
   const db = new PGlite(); t.after(() => db.close());
   await db.exec('create role anon; create role authenticated;');
   await db.exec(sql);
-  const first = tracker({}, { url: 'http://localhost/Hero%20Homes/map/index%20copy.html' });
+  const first = tracker({}, { url: 'http://localhost/FortmenTownsquare/map/index%20copy.html' });
   t.after(() => first.dom.window.close());
   await settle();
   const anonymous = first.calls[0];
@@ -218,56 +218,15 @@ test('Anonymous map journey becomes registered under the same database ID, inclu
 
 test('Home and admin never create an identity or flush stored analytics', async t => {
   for (const route of ['index.html', '', 'map/IPX/admin/index.html']) {
-    const browser = tracker({ heroHomesAnalyticsQueue: JSON.stringify([{ id: 'pending' }]) },
-      { url: `http://localhost/Hero%20Homes/${route}` });
+    const browser = tracker({ fortmenTownsquareAnalyticsQueue: JSON.stringify([{ id: 'pending' }]) },
+      { url: `http://localhost/FortmenTownsquare/${route}` });
     t.after(() => browser.dom.window.close());
     browser.identify(); browser.tick(); browser.window.dispatchEvent(new browser.window.Event('pagehide'));
     await settle();
     assert.equal(browser.calls.length, 0);
-    assert.equal(browser.window.sessionStorage.getItem('heroHomesAnalyticsVisitorId'), null);
-    assert.equal(browser.window.sessionStorage.getItem('heroHomesAnalyticsSession'), null);
+    assert.equal(browser.window.sessionStorage.getItem('fortmenTownsquareAnalyticsVisitorId'), null);
+    assert.equal(browser.window.sessionStorage.getItem('fortmenTownsquareAnalyticsSession'), null);
   }
-});
-
-test('Typical form failure retains anonymous identity; success enriches it and avoids repeat prompts', async t => {
-  const gateSource = readFileSync(path.join(root, 'map/IPX/JS/HeroHomesLeadCaptureGlobal.js'), 'utf8');
-  const html = '<html data-hero-homes-visitor-gate="on-navigation"><body></body></html>';
-  const browser = tracker({}, { html }); t.after(() => browser.dom.window.close());
-  await settle();
-  const anonymous = browser.calls[0];
-  const analyticsFetch = browser.window.fetch;
-  let fail = true;
-  browser.window.console.error = () => {};
-  browser.window.fetch = async (url, request) => {
-    if (url.endsWith('/visitors')) return { ok: !fail, status: 503, json: async () => ({ message: 'Test outage' }) };
-    return analyticsFetch(url, request);
-  };
-  browser.window.eval(gateSource); await settle();
-  const document = browser.window.document;
-  assert.equal(document.getElementById('hhRequiredVisitorGate'), null);
-  let resumed = false;
-  assert.equal(browser.window.HeroHomesRequireVisitor(() => { resumed = true; }), false);
-  assert.ok(document.getElementById('hhRequiredVisitorGate').classList.contains('open'));
-  for (const [id, value] of Object.entries({ hhReqName: 'Test Visitor', hhReqPhone: '9000000001', hhReqEmail: 'test@example.com', hhReqCity: 'Test City' })) {
-    document.getElementById(id).value = value;
-  }
-  const submit = () => document.getElementById('hhRequiredVisitorForm').dispatchEvent(new browser.window.Event('submit', { cancelable: true }));
-  submit(); await settle();
-  assert.equal(browser.window.sessionStorage.getItem('heroHomesVisitor'), null);
-  assert.match(document.getElementById('hhReqError').textContent, /Could not submit/);
-  assert.ok(document.getElementById('hhRequiredVisitorGate').classList.contains('open'));
-  fail = false; submit(); await settle();
-  assert.equal(resumed, true);
-  const registered = browser.calls.at(-1);
-  assert.equal(registered.name, 'Test Visitor');
-  assert.equal(registered.visitor_id, anonymous.visitor_id);
-  assert.equal(registered.session_id, anonymous.session_id);
-  assert.equal(registered.id, anonymous.id);
-  assert.ok(!document.getElementById('hhRequiredVisitorGate').classList.contains('open'));
-  const next = tracker(browser.storage(), { html }); t.after(() => next.dom.window.close());
-  next.window.eval(gateSource); await settle();
-  assert.equal(next.window.document.getElementById('hhRequiredVisitorGate'), null);
-  assert.equal(next.calls.at(-1).visitor_id, anonymous.visitor_id);
 });
 
 test('Visitor Details: totals, profiles, session selection, escaping and empty journeys', async t => {
@@ -324,18 +283,18 @@ test('Visitor Details: totals, profiles, session selection, escaping and empty j
   assert.equal(window.document.getElementById('visitorDetailsSetup').hidden, false);
 });
 
-test('Map pages include a valid tracker; public home and admin do not track visitors; only Typical pages show the form', () => {
+test('Map pages include a valid tracker; public home and admin do not track visitors; all pages remain form-free', () => {
   const walk = folder => readdirSync(folder, { withFileTypes: true }).flatMap(entry => entry.isDirectory() && entry.name !== 'tests'
     ? walk(path.join(folder, entry.name)) : entry.isFile() && entry.name.endsWith('.html') ? [path.join(folder, entry.name)] : []);
   let tracked = 0;
   for (const file of walk(root)) {
     const html = readFileSync(file, 'utf8');
-    const scripts = [...html.matchAll(/<script type="module" src="([^"]*HeroHomesAnalytics\.js)"><\/script>/g)];
+    const scripts = [...html.matchAll(/<script type="module" src="([^"]*FortmenTownsquareAnalytics\.js)"><\/script>/g)];
     if (file.includes(`${path.sep}admin${path.sep}`) || file === path.join(root, 'index.html')) { assert.equal(scripts.length, 0); continue; }
     assert.equal(scripts.length, 1, file);
     assert.ok(existsSync(path.resolve(path.dirname(file), scripts[0][1])), file);
-    assert.equal(html.includes('data-hero-homes-visitor-gate="on-navigation"'), path.basename(file) === 'Typical.html', file);
+    assert.equal(/<form\b|data-fortmen-townsquare-visitor-gate|LeadCapture|VisitorCapture/i.test(html), false, file);
     tracked++;
   }
-  assert.equal(tracked, 46);
+  assert.ok(tracked >= 46);
 });

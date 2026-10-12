@@ -23,7 +23,7 @@
     var IMAGE_SELECTOR = "#mainImage";
     var BRAND_SELECTOR = ".plot-brand";
 
-    // Default anchor = right-middle of Index.html's "Fortem Townsquare"
+    // Default anchor = right-middle of Index.html's "FortmenTownsquare"
     // path bbox, as a percentage of the map. That bbox is x 8.11-18.46%,
     // y 53.22-67.41%; the x is nudged just outside the right edge so the
     // connector starts clear of the glowing outline instead of on top of it.

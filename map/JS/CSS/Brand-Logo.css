@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   BRAND LOGO — animated Fortem Townsquare mark + "", pinned to the plan
+   BRAND LOGO — animated FortmenTownsquare mark + "", pinned to the plan
    ---------------------------------------------------------------
    Sits just OUTSIDE the right edge of the glowing plot outline,
    joined to it by a short connector and an anchor dot — so the
@@ -33,7 +33,7 @@
     --brand-plate-pad-y: 11px;
     --brand-plate-radius: 10px;
 
-    /* ═══ Fortem Townsquare  ═══ */
+    /* ═══ FortmenTownsquare  ═══ */
     --hh-red: #C6202A;
     --hh-ink: #221F20;
     --brand-phase-gap: 7px;
@@ -171,9 +171,9 @@
     /* An inline <svg> has no intrinsic pixel box once width/height attrs are
        removed, so height:auto alone can collapse it. This MUST match the
        inlined SVG's viewBox, which is tight to the ink (3817 x 1335 for the
-       Fortem Townsquare lockup). If the logo ever renders stretched-tall, this line
+       FortmenTownsquare lockup). If the logo ever renders stretched-tall, this line
        is out of step with the SVG in index.html. */
-    aspect-ratio: 3817 / 1335;   /* Fortem Townsquare viewBox 3817x1335 (was 1476/916) */
+    aspect-ratio: 3817 / 1335;   /* FortmenTownsquare viewBox 3817x1335 (was 1476/916) */
     overflow: visible;
 }
 
@@ -236,7 +236,7 @@
    fields to dark tree cover, and no single artwork colour survives both.
    A solid white card fixes contrast outright.
 
-   This is WHY the Fortem Townsquare wordmark is inlined in its dark colourway
+   This is WHY the FortmenTownsquare wordmark is inlined in its dark colourway
    (--hh-ink) rather than a reversed/white one — white type on a white
    plate is invisible. If you ever drop the plate, swap the fills.
 
