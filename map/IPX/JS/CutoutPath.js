@@ -2,6 +2,14 @@
 (function () {
   const paths = document.querySelectorAll(".Cutout path[data-link]");
 
+  // Back/forward navigation can restore the DOM with the clicked floor selected.
+  function clearSelection() {
+    paths.forEach((path) => path.classList.remove("selected"));
+  }
+
+  window.addEventListener("pagehide", clearSelection);
+  window.addEventListener("pageshow", clearSelection);
+
   paths.forEach((path) => {
     path.style.pointerEvents = "all";
     path.style.cursor = "pointer";

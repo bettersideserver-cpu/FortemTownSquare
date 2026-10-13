@@ -19,7 +19,7 @@
     position: relative;
     padding: 26px 26px 18px;
     border: 1px solid rgba(255, 255, 255, .85);
-    border-top: 3px solid #b5121b;
+    border-top: 3px solid #2F4539;
     border-radius: 4px 4px 20px 20px;
     background: rgba(255, 255, 255, .95);
     box-shadow: 0 12px 40px rgba(36, 24, 18, .13), 0 2px 6px rgba(36, 24, 18, .04);
@@ -36,13 +36,13 @@
     align-items: center;
     gap: 9px;
     margin: 0 0 12px;
-    color: #8a2229;
+    color: #2F4539;
     font-size: 9px;
     font-weight: 600;
     letter-spacing: .2em;
     text-transform: uppercase;
 }
-.hh-details-eyebrow > span { width: 17px; height: 1px; background: #b5121b; }
+.hh-details-eyebrow > span { width: 17px; height: 1px; background: #2F4539; }
 .hh-tower-details .hh-details-name {
     margin: 0 0 22px;
     color: #292929;
@@ -96,10 +96,10 @@
         width: 46px;
         height: 46px;
         padding: 0;
-        border: 1px solid rgba(181, 18, 27, .2) !important;
+        border: 1px solid rgba(47, 69, 57, .2) !important;
         border-radius: 50% !important;
         background: #fff;
-        color: #b5121b;
+        color: #2F4539;
         box-shadow: 0 4px 20px rgba(0, 0, 0, .12);
         cursor: pointer;
         pointer-events: auto;
@@ -108,11 +108,11 @@
         transition: color .2s ease, background .2s ease, transform .2s ease;
     }
     .hh-details-toggle:active { transform: scale(.94); }
-    .hh-details-toggle:focus-visible { outline: 2px solid #b5121b; outline-offset: 4px; }
+    .hh-details-toggle:focus-visible { outline: 2px solid #2F4539; outline-offset: 4px; }
     .hh-details-info { font: italic 600 26px/1 Georgia, serif; }
     .hh-details-info, .hh-details-cross { grid-area: 1 / 1; transition: opacity .22s ease, transform .3s ease; }
     .hh-details-cross { opacity: 0; transform: rotate(-90deg) scale(.5); }
-    .is-open .hh-details-toggle { background: #b5121b; color: #fff; }
+    .is-open .hh-details-toggle { background: #2F4539; color: #fff; }
     .is-open .hh-details-info { opacity: 0; transform: rotate(90deg) scale(.5); }
     .is-open .hh-details-cross { opacity: 1; transform: rotate(0) scale(1); }
     .hh-details-panel {

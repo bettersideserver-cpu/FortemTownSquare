@@ -237,7 +237,7 @@
             //
             //     dot: {
             //         size: 13,
-            //         color: "#e53935",
+            //         color: "#2F4539",
             //         borderColor: "#ffffff",
             //         borderWidth: 2,
             //         pulse: true

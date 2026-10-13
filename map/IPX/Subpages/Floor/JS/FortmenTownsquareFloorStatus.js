@@ -7,7 +7,7 @@
     "Tower-12.html":"12", "Tower-C-12-A.html":"12A"
   };
   const COLORS = {
-    available:'#35C759', sold:'#FF3B30', hold:'#FFB000', blocked:'#8E8E93',
+    available:'#35C759', sold:'#2F4539', hold:'#FFB000', blocked:'#8E8E93',
     reserved:'#AF52DE', booked:'#FF9500'
   };
   function tower(){ return TOWER_BY_FILE[location.pathname.split('/').pop()] || ''; }

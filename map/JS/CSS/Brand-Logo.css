@@ -34,7 +34,7 @@
     --brand-plate-radius: 10px;
 
     /* ═══ FortmenTownsquare  ═══ */
-    --hh-red: #C6202A;
+    --hh-red: #2F4539;
     --hh-ink: #221F20;
     --brand-phase-gap: 7px;
     --brand-phase-size: 11px;
@@ -214,7 +214,7 @@
     width: var(--brand-phase-rule-w);
     height: var(--brand-phase-rule-h);
     border-radius: 2px;
-    background: var(--hh-red, #C6202A);
+    background: var(--hh-red, #2F4539);
 }
 
 /* PlotBrand.js adds .go to the SVG itself, not to an ancestor, so the

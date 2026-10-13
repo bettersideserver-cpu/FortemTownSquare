@@ -1,6 +1,6 @@
 /* =========================================================
    FortmenTownsquare FLOOR CONTROLS
-   RED + WHITE THEME
+   GREEN + WHITE THEME
    ========================================================= */
 
 
@@ -38,7 +38,7 @@
 
     padding: 0 12px;
 
-    border: 1px solid #B5121B;
+    border: 1px solid #2F4539;
     border-radius: 8px;
 
     background: #FFFFFF;
@@ -80,7 +80,7 @@
 
     overflow-y: auto;
 
-    border: 1px solid #B5121B;
+    border: 1px solid #2F4539;
     border-radius: 8px;
 
     background: #FFFFFF;
@@ -143,7 +143,7 @@
    ========================================================= */
 
 .hhFloorOption.is-selected {
-    background: #B5121B;
+    background: #2F4539;
     color: #FFFFFF;
 }
 
@@ -172,7 +172,7 @@
 
     box-shadow: 0 2px 14px rgba(0, 0, 0, 0.12);
 
-    border: 1px solid rgba(181, 18, 27, 0.18);
+    border: 1px solid rgba(47, 69, 57, 0.18);
 }
 
 
@@ -266,7 +266,7 @@
    ========================================================= */
 
 #hhAvailableSwitch input:checked + #hhAvailableSlider {
-    background: #B5121B;
+    background: #2F4539;
 }
 
 #hhAvailableSwitch input:checked + #hhAvailableSlider:before {
@@ -296,9 +296,9 @@
 #availableOffLayer rect,
 #availableOffLayer circle,
 #availableOffLayer ellipse {
-    fill: rgba(241, 232, 233, 0.082) !important;
+    fill: rgba(232, 241, 235, 0.082) !important;
 
-    stroke: rgba(160, 85, 98, 0.95) !important;
+    stroke: rgba(47, 69, 57, 0.95) !important;
 
     stroke-width: 5.5px !important;
 
@@ -339,9 +339,9 @@
 #availableOffLayer ellipse:hover,
 #availableOffLayer polyline:hover {
 
-    fill: rgba(181, 18, 27, 0.48) !important;
+    fill: rgba(47, 69, 57, 0.48) !important;
 
-    stroke: #B5121B !important;
+    stroke: #2F4539 !important;
 
     stroke-width: 5.5px !important;
 }

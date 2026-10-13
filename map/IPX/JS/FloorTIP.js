@@ -53,6 +53,10 @@ window.addEventListener('DOMContentLoaded', () => {
         currentTarget = null;
     }
 
+    // A cached page keeps its visible tooltip unless it is explicitly reset.
+    window.addEventListener('pagehide', hideTip);
+    window.addEventListener('pageshow', hideTip);
+
     paths.forEach(p => {
         p.addEventListener('mouseenter', (e) => {
             currentTarget = p;
