@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FortmenTownsquare — Tower A Retail Tour</title>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.105.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/panolens@0.12.0/build/panolens.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Jost', sans-serif;
+}
+
+#viewer {
+    width: 100%;
+    height: 100%;
+}
+
+/* =========================================
+   FADE
+========================================= */
+
+#fadeOverlay {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .45s ease;
+    z-index: 99999;
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+#backBtn {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 10000;
+
+    width: 46px;
+    height: 46px;
+
+    border: 1px solid rgba(255,255,255,.20);
+    border-radius: 50%;
+
+  background: rgba(30,48,43,.82);
+    color: #fff;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+    transition:
+        background .25s ease,
+        transform .25s ease,
+        border-color .25s ease;
+}
+
+#backBtn:hover {
+    background: rgba(255,255,255,.92);
+    color: #111;
+    border-color: rgba(255,255,255,.5);
+    transform: translateX(-2px);
+}
+
+#backBtn svg {
+    width: 19px;
+    height: 19px;
+}
+
+
+/* =========================================
+   ROOM INFORMATION
+========================================= */
+
+
+/* =========================================
+   BOTTOM ROOM NAVIGATION
+========================================= */
+
+.tour-nav-wrap {
+    position: fixed;
+
+    left: 50%;
+    bottom: 22px;
+
+    transform: translateX(-50%);
+
+    z-index: 10000;
+
+    display: flex;
+    align-items: center;
+
+    width: auto;
+    max-width: calc(100vw - 40px);
+}
+
+.tour-nav {
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+
+    padding: 7px;
+
+    background: rgba(30,48,43,.82);
+
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 18px;
+
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.07);
+
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.tour-nav::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* =========================================
+   ROOM BUTTONS
+========================================= */
+
+.tour-pill {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    height: 40px;
+    padding: 0 15px;
+
+    border: 1px solid transparent;
+    border-radius: 12px;
+
+    background: transparent;
+    color: rgba(245,242,234,.68);
+
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: .025em;
+
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .25s ease,
+        border-color .25s ease;
+}
+
+.tour-pill svg {
+    width: 16px;
+    height: 16px;
+
+    flex-shrink: 0;
+
+    opacity: .72;
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
+}
+
+.tour-pill:hover {
+    color: #fff;
+    background: rgba(245,242,234,.10);
+
+    transform: translateY(-1px);
+}
+
+.tour-pill:hover svg {
+    opacity: 1;
+}
+
+.tour-pill.active {
+    background: #E8E3D9;
+    color: #1E302B;
+
+
+    border-color: rgba(255,255,255,.5);
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.2),
+        inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+.tour-pill.active svg {
+    opacity: 1;
+}
+/* =========================================
+   ROOM INFO — HIGH READABILITY VERSION
+========================================= */
+
+#roomInfoCard {
+    box-sizing: border-box !important;
+
+    position: fixed !important;
+
+    top: 24px !important;
+    right: 24px !important;
+    left: auto !important;
+
+    width: 225px !important;
+    min-width: 185px !important;
+    max-width: 185px !important;
+
+    padding: 12px 16px !important;
+
+    background: #1E302B !important;
+
+    border: 1px solid #AFA99E !important;
+    border-radius: 8px !important;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.45) !important;
+
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+
+    text-align: left !important;
+
+    opacity: 0 !important;
+    transform: translateY(-8px) !important;
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease !important;
+}
+
+
+#roomInfoCard.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+
+/* ROOM NAME */
+
+#roomInfoCard .hud-name {
+    display: block !important;
+
+    margin: 0 0 4px !important;
+    padding: 0 !important;
+
+    color: #FFFFFF !important;
+
+    font-size: 24px !important;
+    line-height: 1.1 !important;
+    font-weight: 600 !important;
+
+    letter-spacing: 0 !important;
+}
+
+
+/* DIMENSIONS */
+
+#roomInfoCard .hud-dims {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 5px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #F5F2EA !important;
+
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+}
+
+#roomInfoCard .hud-dims > span {
+    display: inline-block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#roomInfoCard .hud-multiply {
+    opacity: .72;
+    margin: 0 !important;
+}
+
+
+/* SQ FT */
+
+#roomInfoCard .hud-sqft {
+    display: block !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #D8D3C9 !important;
+
+    font-size: 19px !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+
+    letter-spacing: .12em !important;
+
+    text-transform: uppercase !important;
+}
+
+
+/* FT */
+
+#roomInfoCard .hud-accent {
+    color: #E8E3D9 !important;
+}
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    #roomInfoCard {
+        top: 14px !important;
+        right: 14px !important;
+
+        width: 195px !important;
+        min-width: 195px !important;
+        max-width: 195px !important;
+
+        padding: 14px 16px !important;
+
+        border-radius: 7px !important;
+    }
+
+    #roomInfoCard .hud-name {
+        font-size: 19px !important;
+        margin-bottom: 10px !important;
+    }
+
+    #roomInfoCard .hud-dims {
+        font-size: 11px !important;
+        margin-bottom: 5px !important;
+    }
+
+    #roomInfoCard .hud-sqft {
+        font-size: 8px !important;
+    }
+}
+
+/* =========================================
+   SCROLL ARROW
+========================================= */
+
+.scroll-arrow {
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 40px;
+
+    margin-left: 5px;
+
+    flex-shrink: 0;
+
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 12px;
+
+    background: rgba(12,12,12,.55);
+    color: #fff;
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    pointer-events: none;
+
+    transition: opacity .3s ease;
+}
+
+.scroll-arrow svg {
+    width: 15px;
+    height: 15px;
+}
+
+.scroll-arrow.hidden {
+    opacity: 0;
+}
+
+
+/* =========================================
+   BALCONY / FLOOR CONTROL
+========================================= */
+
+#balconyControls {
+    position: fixed;
+
+    top: 50%;
+    right: 24px;
+
+    transform: translateY(-50%);
+
+    z-index: 10001;
+
+    display: none;
+
+    flex-direction: column;
+    align-items: center;
+
+    padding: 5px;
+
+background: rgba(18,35,30,.94);
+    border: 1px solid rgba(255,255,255,.17);
+    border-radius: 17px;
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.3),
+        inset 0 1px 0 rgba(255,255,255,.07);
+
+    overflow: hidden;
+}
+
+#balconyControls .floor-btn {
+    width: 42px;
+    height: 42px;
+
+    border: 0;
+    border-radius: 12px;
+
+    background: transparent;
+    color: rgba(255,255,255,.72);
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+}
+
+#balconyControls .floor-btn:hover {
+    background: rgba(255,255,255,.10);
+    color: #fff;
+
+    transform: scale(1.04);
+}
+
+#balconyControls .floor-btn:active {
+    transform: scale(.94);
+}
+
+#balconyControls .floor-btn svg {
+    width: 17px;
+    height: 17px;
+}
+
+#floorIndicator {
+    width: 42px;
+
+    padding: 9px 0;
+
+    border-top: 1px solid rgba(255,255,255,.10);
+    border-bottom: 1px solid rgba(255,255,255,.10);
+
+    color: #fff;
+
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+
+    line-height: 1.45;
+    letter-spacing: .12em;
+
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   DESKTOP
+========================================= */
+
+@media (min-width: 769px) {
+
+    .tour-nav-wrap {
+        left: 50% !important;
+        right: auto !important;
+        bottom: 22px !important;
+
+        width: auto !important;
+
+        transform: translateX(-50%) !important;
+    }
+
+    .tour-nav-wrap .tour-nav {
+        position: static !important;
+
+        transform: none !important;
+
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+    }
+
+    .scroll-arrow {
+        display: none !important;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    #backBtn {
+        top: 14px;
+        left: 14px;
+
+        width: 40px;
+        height: 40px;
+
+        border-radius: 13px;
+    }
+
+    #backBtn svg {
+        width: 17px;
+        height: 17px;
+    }
+
+
+
+
+    .tour-nav-wrap {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+
+        width: auto;
+        max-width: none;
+
+        transform: none;
+
+        display: flex;
+    }
+
+    .tour-nav {
+        width: 100%;
+
+        padding: 6px;
+
+        gap: 4px;
+
+        border-radius: 15px;
+    }
+
+    .tour-pill {
+        height: 38px;
+
+        padding: 0 13px;
+
+        border-radius: 10px;
+
+        font-size: 12px;
+    }
+
+    .tour-pill svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .scroll-arrow {
+        display: flex;
+    }
+
+
+    #balconyControls {
+        right: 12px;
+    }
+
+    #balconyControls .floor-btn {
+        width: 39px;
+        height: 39px;
+    }
+
+    #floorIndicator {
+        width: 39px;
+        font-size: 8px;
+    }
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 400px) {
+
+    #backBtn {
+        width: 37px;
+        height: 37px;
+    }
+
+    #roomInfoCard {
+        padding: 10px 12px;
+    }
+
+    #roomInfoCard .hud-name {
+        font-size: 15px;
+    }
+
+    #roomInfoCard .hud-dims {
+        font-size: 10px;
+    }
+
+    .tour-pill {
+        height: 36px;
+        padding: 0 11px;
+        font-size: 11px;
+    }
+}
+/* =========================================
+   REQUEST TO HOLD BUTTON
+========================================= */
+
+#holdRequestBtn {
+    position: fixed;
+    right: 24px;
+    bottom: 94px;
+
+    z-index: 10002;
+
+    height: 46px;
+    padding: 0 22px;
+
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 13px;
+
+    background: #E8E3D9;
+    color: #1E302B;
+
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .04em;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.65);
+
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+#holdRequestBtn svg {
+    width: 17px;
+    height: 17px;
+}
+
+#holdRequestBtn:hover {
+    background: #1E302B;
+    color: #E8E3D9;
+    border-color: rgba(232,227,217,.55);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 35px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+#holdRequestBtn:active {
+    transform: translateY(0) scale(.98);
+}
+
+
+/* =========================================
+   HOLD REQUEST OVERLAY
+========================================= */
+
+#holdOverlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 20000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,.58);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+#holdOverlay.show {
+    display: flex;
+}
+
+
+/* =========================================
+   HOLD FORM CARD
+========================================= */
+
+#holdCard {
+    position: relative;
+
+    width: 430px;
+    max-width: 100%;
+
+    padding: 30px;
+
+    background: #1E302B;
+
+    border: 1px solid #AFA99E;
+    border-radius: 14px;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+    color: #F5F2EA;
+
+    animation: holdCardIn .3s ease;
+}
+
+@keyframes holdCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+#holdClose {
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    width: 34px;
+    height: 34px;
+
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.06);
+    color: #F5F2EA;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .25s ease;
+}
+
+#holdClose:hover {
+    background: #E8E3D9;
+    color: #1E302B;
+}
+
+#holdClose svg {
+    width: 16px;
+    height: 16px;
+}
+
+
+/* =========================================
+   FORM TITLE
+========================================= */
+
+#holdCard h2 {
+    margin: 0 45px 7px 0;
+
+    font-size: 24px;
+    font-weight: 600;
+
+    color: #FFFFFF;
+}
+
+#holdCard .hold-subtitle {
+    margin: 0 0 24px;
+
+    font-size: 12px;
+    line-height: 1.6;
+
+    color: #D8D3C9;
+
+    letter-spacing: .02em;
+}
+
+
+/* =========================================
+   FORM GROUP
+========================================= */
+
+.hold-field {
+    margin-bottom: 16px;
+}
+
+.hold-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    color: #D8D3C9;
+
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.hold-field input,
+.hold-field select,
+.hold-field textarea {
+    width: 100%;
+
+    height: 44px;
+
+    padding: 0 13px;
+
+    border: 1px solid rgba(175,169,158,.55);
+    border-radius: 9px;
+
+    outline: none;
+
+    background: rgba(255,255,255,.06);
+    color: #F5F2EA;
+
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.hold-field textarea {
+    height: 80px;
+    padding: 12px 13px;
+    resize: none;
+}
+
+.hold-field input::placeholder,
+.hold-field textarea::placeholder {
+    color: rgba(245,242,234,.42);
+}
+
+.hold-field input:focus,
+.hold-field select:focus,
+.hold-field textarea:focus {
+    border-color: #E8E3D9;
+
+    background: rgba(255,255,255,.09);
+
+    box-shadow:
+        0 0 0 3px rgba(232,227,217,.08);
+}
+
+.hold-field select option {
+    background: #1E302B;
+    color: #F5F2EA;
+}
+
+
+/* =========================================
+   SELECTED ROOM
+========================================= */
+
+#selectedRoom {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid rgba(175,169,158,.45);
+    border-radius: 9px;
+
+    background: rgba(232,227,217,.07);
+
+    font-size: 12px;
+    color: #E8E3D9;
+}
+
+#selectedRoom strong {
+    color: #FFFFFF;
+}
+
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+#submitHoldBtn {
+    width: 100%;
+    height: 46px;
+
+    margin-top: 5px;
+
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 10px;
+
+    background: #E8E3D9;
+    color: #1E302B;
+
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: .05em;
+
+    cursor: pointer;
+
+    transition: .25s ease;
+}
+
+#submitHoldBtn:hover {
+    background: #F5F2EA;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.25);
+}
+
+#submitHoldBtn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    #holdRequestBtn {
+        right: 14px;
+        bottom: 68px;
+
+        height: 42px;
+
+        padding: 0 16px;
+
+        font-size: 11px;
+
+        border-radius: 11px;
+    }
+
+    #holdRequestBtn svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    #holdCard {
+        width: 100%;
+
+        padding: 24px 20px;
+
+        border-radius: 12px;
+    }
+
+    #holdCard h2 {
+        font-size: 21px;
+    }
+}
+</style>
+<style>
+/* FortmenTownsquare — Green & White theme */
+/* ===== Green & White Tour Theme ===== */
+
+/* Back button */
+#backBtn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #2F4539 !important;
+}
+
+#backBtn:hover {
+  background: #DCE6DF !important;
+  color: #000000 !important;
+}
+
+/* Information and control panels */
+#roomInfoCard,
+#holdCard,
+#balconyControls {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #2F4539 !important;
+}
+
+#roomInfoCard *,
+#holdCard *,
+#balconyControls * {
+  color: #000000 !important;
+}
+
+/* Navigation */
+.tour-nav {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid #2F4539 !important;
+}
+
+/* Navigation pills */
+.tour-pill {
+  background: transparent !important;
+  color: #000000 !important;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover on an unselected pill */
+.tour-pill:not(.active):hover {
+  background: #DCE6DF !important;
+  color: #000000 !important;
+}
+
+/* Selected pill */
+.tour-pill.active {
+  background: #2F4539 !important;
+  color: #ffffff !important;
+}
+/* Buttons */
+#holdRequestBtn,
+#holdCard button,
+#holdCard input[type="submit"] {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #2F4539 !important;
+}
+
+#holdRequestBtn:hover,
+#holdCard button:hover,
+#holdCard input[type="submit"]:hover {
+  background: #DCE6DF !important;
+  color: #000000 !important;
+}
+
+/* Form fields */
+#holdCard input,
+#holdCard textarea,
+#holdCard select {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #2F4539 !important;
+}
+
+#holdCard input::placeholder,
+#holdCard textarea::placeholder {
+  color: #555555 !important;
+}
+
+/* Smooth hover transition */
+#backBtn,
+.tour-pill,
+#holdRequestBtn,
+#holdCard button,
+#holdCard input[type="submit"] {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+#roomInfoCard,
+#roomInfoCard *,
+#roomInfoCard *::before,
+#roomInfoCard *::after {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Balcony floor dropdown */
+#balconyControls {
+    display: none;
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(10, 18, 32, 0.82);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: #fff;
+    font-family: inherit;
+}
+#balconyControls label {
+    font-size: 10px;
+    letter-spacing: 1.2px;
+    opacity: .72;
+    white-space: nowrap;
+}
+#balconyFloorSelect {
+    min-width: 118px;
+    padding: 8px 30px 8px 10px;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 8px;
+    background: rgba(255,255,255,.08);
+    color: #fff;
+    outline: none;
+    font: inherit;
+    cursor: pointer;
+}
+#balconyFloorSelect option {
+    background: #101827;
+    color: #fff;
+}
+@media (max-width: 600px) {
+    #balconyControls { top: 12px; right: 12px; padding: 8px; gap: 7px; }
+    #balconyControls label { display: none; }
+    #balconyFloorSelect { min-width: 105px; }
+}
+/* Balcony floor selector — cleaner compact UI */
+#balconyControls {
+    position: fixed;
+    top: 46px;
+    right: 16px;
+    z-index: 9999;
+
+    display: none;
+    align-items: center;
+    gap: 10px;
+
+    padding: 8px 10px 8px 14px;
+    border: 1px solid #2F4539;
+    border-radius: 12px;
+
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+
+    font-family: inherit;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+#balconyControls label {
+    display: block;
+    margin: 0;
+
+    color: #555555;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+}
+
+#balconyFloorSelect {
+    min-width: 100px;
+    padding: 8px 28px 8px 10px;
+
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #000000;
+
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+}
+
+#balconyFloorSelect option {
+    background: #ffffff;
+    color: #000000;
+}
+
+@media (max-width: 600px) {
+    #balconyControls {
+        top: 42px;
+        right: 12px;
+        gap: 6px;
+        padding: 6px 7px 6px 10px;
+        border-radius: 10px;
+    }
+
+    #balconyControls label {
+        font-size: 9px;
+        letter-spacing: 0.4px;
+    }
+
+    #balconyFloorSelect {
+        min-width: 82px;
+        padding: 7px 22px 7px 8px;
+        font-size: 12px;
+    }
+}
+
+/* =========================================================
+   ADDED DESKTOP NAVIGATION + 2K / QHD UI SCALING
+   Added from the reference tour UI.
+   Existing room/content information is unchanged.
+   ========================================================= */
+
+@media (min-width: 769px) {
+
+    /* Desktop bottom navigation */
+    .tour-nav-wrap {
+        left: 50% !important;
+        right: auto !important;
+        bottom: 22px !important;
+        width: auto !important;
+        transform: translateX(-50%) !important;
+    }
+
+    .tour-nav-wrap .tour-nav {
+        position: static !important;
+        transform: none !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+    }
+
+    /* Desktop arrows */
+    .scroll-arrow {
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        width: 38px !important;
+        height: 40px !important;
+
+        margin-left: 0 !important;
+
+        border: 1px solid #2F4539 !important;
+        border-radius: 10px !important;
+
+        background: rgba(255,255,255,0.96) !important;
+        color: #2F4539 !important;
+
+        box-shadow: 0 3px 12px rgba(0,0,0,.18) !important;
+
+        z-index: 5 !important;
+        cursor: pointer !important;
+        pointer-events: auto !important;
+
+        transition:
+            opacity .25s ease,
+            transform .25s ease,
+            background .2s ease,
+            box-shadow .2s ease !important;
+    }
+
+    .scroll-arrow-left {
+        left: 7px !important;
+    }
+
+    .scroll-arrow-right {
+        right: 7px !important;
+    }
+
+    .scroll-arrow:hover {
+        background: #2F4539 !important;
+        color: #ffffff !important;
+        box-shadow: 0 5px 16px rgba(47, 69, 57,.28) !important;
+    }
+
+    .scroll-arrow svg {
+        width: 17px !important;
+        height: 17px !important;
+    }
+
+    .scroll-arrow.hidden {
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+}
+
+
+/* =========================================================
+   2K / QHD — 2560 × 1440
+   ========================================================= */
+
+@media (min-width: 2560px) and (max-width: 3839px) {
+
+    /* Back button */
+    #backBtn {
+        top: 30px !important;
+        left: 30px !important;
+        width: 56px !important;
+        height: 56px !important;
+        border-radius: 50% !important;
+    }
+
+    #backBtn svg {
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    /* Information card */
+    #roomInfoCard {
+        top: 30px !important;
+        right: 30px !important;
+        left: auto !important;
+
+        width: 250px !important;
+        min-width: 250px !important;
+        max-width: 250px !important;
+
+        padding: 18px 20px !important;
+        box-sizing: border-box !important;
+        border-radius: 10px !important;
+    }
+
+    #roomInfoCard .hud-name {
+        margin: 0 0 7px !important;
+        font-size: 29px !important;
+        line-height: 1.1 !important;
+    }
+
+    #roomInfoCard .hud-dims {
+        gap: 6px !important;
+        font-size: 17px !important;
+        line-height: 1.2 !important;
+    }
+
+    #roomInfoCard .hud-dims > span {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Bottom navigation */
+    .tour-nav-wrap {
+        bottom: 28px !important;
+        max-width: calc(100vw - 60px) !important;
+        padding-right: 55px !important;
+    }
+
+    .tour-nav {
+        gap: 5px !important;
+        padding: 9px !important;
+        border-radius: 20px !important;
+    }
+
+    .tour-pill {
+        height: 48px !important;
+        padding: 0 18px !important;
+        gap: 9px !important;
+        border-radius: 13px !important;
+        font-size: 15px !important;
+    }
+
+    .tour-pill svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    /* 2K forward/back arrows */
+    .scroll-arrow {
+        width: 46px !important;
+        height: 46px !important;
+        border-radius: 11px !important;
+    }
+
+    .scroll-arrow-left {
+        left: 7px !important;
+    }
+
+    .scroll-arrow-right {
+        right: 7px !important;
+    }
+
+    .scroll-arrow svg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    /* Request to Hold */
+    #holdRequestBtn {
+        right: 30px !important;
+        bottom: 116px !important;
+        height: 56px !important;
+        padding: 0 26px !important;
+        border-radius: 14px !important;
+        font-size: 15px !important;
+        gap: 10px !important;
+    }
+
+    #holdRequestBtn svg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    /* Balcony / floor control */
+    #balconyControls {
+        right: 30px !important;
+        padding: 10px 13px 10px 16px !important;
+        gap: 12px !important;
+        border-radius: 14px !important;
+    }
+
+    #balconyControls label {
+        font-size: 12px !important;
+        letter-spacing: 1px !important;
+    }
+
+    #balconyFloorSelect {
+        min-width: 125px !important;
+        padding: 10px 30px 10px 12px !important;
+        border-radius: 9px !important;
+        font-size: 14px !important;
+    }
+
+    /* Hold form */
+    #holdCard {
+        width: 520px !important;
+        padding: 36px !important;
+        border-radius: 16px !important;
+    }
+
+    #holdCard h2 {
+        font-size: 28px !important;
+        margin: 0 50px 9px 0 !important;
+    }
+
+    #holdCard .hold-subtitle {
+        margin-bottom: 28px !important;
+        font-size: 14px !important;
+        line-height: 1.6 !important;
+    }
+
+    .hold-field {
+        margin-bottom: 19px !important;
+    }
+
+    .hold-field label {
+        margin-bottom: 8px !important;
+        font-size: 12px !important;
+    }
+
+    .hold-field input,
+    .hold-field select,
+    .hold-field textarea {
+        height: 50px !important;
+        padding: 0 15px !important;
+        border-radius: 10px !important;
+        font-size: 14px !important;
+    }
+
+    .hold-field textarea {
+        height: 90px !important;
+        padding: 13px 15px !important;
+    }
+
+    #selectedRoom {
+        padding: 14px 16px !important;
+        margin-bottom: 20px !important;
+        border-radius: 10px !important;
+        font-size: 13px !important;
+    }
+
+    #submitHoldBtn {
+        height: 54px !important;
+        border-radius: 11px !important;
+        font-size: 14px !important;
+    }
+
+    #holdClose {
+        top: 16px !important;
+        right: 16px !important;
+        width: 38px !important;
+        height: 38px !important;
+        border-radius: 10px !important;
+    }
+
+    #holdClose svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
+}
+/* =========================================================
+   FLOOR MAP BUTTON
+   ========================================================= */
+
+#floorMapBtn {
+    position: fixed;
+    top: 27px;
+    left: 92px;
+
+    z-index: 10000;
+
+    height: 46px;
+    padding: 0 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    border: 1px solid #2F4539;
+    border-radius: 13px;
+
+    background: #ffffff;
+    color: #000000;
+
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .05em;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.18);
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+#floorMapBtn svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+}
+
+#floorMapBtn:hover {
+    background: #DCE6DF;
+    color: #000000;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 28px rgba(47, 69, 57,.18);
+}
+
+#floorMapBtn:active {
+    transform: translateY(0) scale(.98);
+}
+/* =========================================
+   MOBILE — FLOOR MAP ABOVE REQUEST TO HOLD
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    #floorMapBtn {
+        top: auto !important;
+        left: auto !important;
+
+        right: 14px !important;
+        bottom: 118px !important;
+
+        height: 42px !important;
+        padding: 0 14px !important;
+
+        font-size: 10px !important;
+        border-radius: 11px !important;
+    }
+
+    #floorMapBtn svg {
+        width: 15px !important;
+        height: 15px !important;
+    }
+
+}
+</style>
+
+
+<style>
+        .tour-pill:disabled { opacity: .45; cursor: not-allowed; }
+        #tourStatus { position: fixed; top: 90px; left: 50%; transform: translateX(-50%); z-index: 10000; max-width: 85vw; padding: 12px 18px; border-radius: 12px; color: #fff; background: rgba(30,48,43,.9); text-align: center; }
+        #tourStatus[hidden] { display: none; }
+    </style>
+</head>
+
+<body>
+<!-- =========================================
+     REQUEST TO HOLD BUTTON
+========================================= -->
+
+
+
+
+<!-- =========================================
+     REQUEST TO HOLD OVERLAY
+========================================= -->
+
+
+
+    <!-- Balcony floor selector: visible only while the balcony panorama is active -->
+
+
+
+
+
+
+
+    <button id="backBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+<button id="floorMapBtn" aria-label="Open Floor Map">
+    <svg viewBox="0 0 24 24" fill="none"
+         stroke="currentColor"
+         stroke-width="1.8"
+         stroke-linecap="round"
+         stroke-linejoin="round">
+        <path d="M3 6L9 3L15 6L21 3V18L15 21L9 18L3 21V6Z"/>
+        <path d="M9 3V18"/>
+        <path d="M15 6V21"/>
+    </svg>
+
+    <span>FLOOR MAP</span>
+</button>
+    <div id="roomInfoCard">
+        <div class="hud-name" id="cardName">Room</div>
+
+
+    </div>
+
+    <div id="viewer"></div>
+    <p id="tourStatus" role="status" aria-live="polite" hidden></p>
+
+    <!-- Bottom panel with room navigation pills -->
+    <div class="tour-nav-wrap" id="tourNavWrap">
+    <nav class="tour-nav" id="tourNav" aria-label="Retail panorama views">
+       
+        <button type="button" class="tour-pill" data-room="bbq" aria-pressed="false">BBQ Restaurant</button>
+  
+    <button class="scroll-arrow scroll-arrow-left hidden" id="scrollArrowLeft" aria-label="Show previous rooms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 6 9 12 15 18"/>
+        </svg>
+    </button>
+
+    <button class="scroll-arrow scroll-arrow-right hidden" id="scrollArrow" aria-label="Show more rooms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 6 15 12 9 18"/>
+        </svg>
+    </button>
+    </div>
+
+
+
+    <div id="fadeOverlay"></div>
+
+
+
+<script src="tour.js"></script>
+
+
+<script type="module" src="../../../JS/FortmenTownsquareAnalytics.js"></script>
+</body>
+
+</html>
+<style>
+/* Room info: show dimensions as numbers only */
+#roomInfoCard .hud-dims {
+    display: block !important;
+}
+
+/* Keep cardSqft in the DOM for existing JS, but never display total area */
+#roomInfoCard .hud-sqft {
+    display: none !important;
+}
+</style>

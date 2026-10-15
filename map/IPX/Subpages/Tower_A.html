@@ -2329,13 +2329,13 @@
                 alt="Tower_2" fetchpriority="high" decoding="async" width="3840" height="5830" class="blur-up" />
             <div class="Cutout">
                 <svg viewBox="0 0 3840 5830" xmlns="http://www.w3.org/2000/svg">
-                     <path id="Floor_1" data-name="Floor_1" data-link="Floor/Tower-AF.html" floorNumber="01"
+                     <path id="Floor_1" data-name="Ground Floor" data-link="Floor/Tower-AF.html" floorNumber="01"
                         d="m2473.17 3054.74-11.95 161.59-441.33 297.78-1284.33-122-2.22-363.89 1275.77-11.3z"
                         class="st0" />
-                    <path id="Floor_2" data-name="Floor_2" data-link="Floor/Tower-AF.html" floorNumber="02"
+                    <path id="Floor_2" data-name="First Floor" data-link="Floor/Tower-AF1.html" floorNumber="02"
                         d="m2485.69 2885.33-12.52 169.41-464.06-37.82-1275.77 11.3-2.01-328.41-10.22-20.44 1242.22-139.34z"
                         class="st0" />
-                    <path id="Floor_3" data-name="Floor_3" data-link="Floor/Tower-AF.html" floorNumber="03"
+                    <path id="Floor_3" data-name="Second Floor" data-link="Floor/Tower-AF2.html" floorNumber="03"
                         d="m2497.89 2720.33-12.2 165-522.36-345.3-1242.22 139.34-12.78-25.56 44.77-2.55-4.59-19.41s5.42.08 5.92-.09c.5-.16 11.57-247.07 11.57-247.07l-5.33-9.41-.34-52.39-30-21.56-.44-6.11-35.89-13.78 1.33-10.44 1321.56-305.33z"
                         class="st0" />
                     <!-- <path id="Floor_29" data-name="Floor_29" data-link="Floor/Tower-11.html" floorNumber="29"
@@ -2491,7 +2491,7 @@
         });
     </script>
 
-    <script src="./../JS/CutoutPath.js"></script>
+    <script src="./../JS/CutoutPath.js?v=2"></script>
     <script src="./../JS/Notification/UI_Hint.js"></script>
     <script src="./../JS/BackButton.js"></script>
     <script src="./../JS/FloorTIP.js"></script>
@@ -2715,41 +2715,7 @@
 
 
 
-    <script>
-        // FortmenTownsquare - Tower B floor navigation (robust click handler)
-        document.addEventListener('DOMContentLoaded', function () {
-            const svg = document.querySelector('.Cutout svg');
-            if (!svg) return;
 
-            // Explicitly restore clickability. The SVG itself must not block its paths.
-            svg.style.pointerEvents = 'auto';
-            document.querySelectorAll('.Cutout path[data-link]').forEach(function (path) {
-                path.style.pointerEvents = 'all';
-                path.style.cursor = 'pointer';
-            });
-
-            svg.addEventListener('click', function (event) {
-                const path = event.target && event.target.closest ? event.target.closest('path[data-link]') : null;
-                if (!path || !svg.contains(path)) return;
-
-                event.preventDefault();
-                event.stopPropagation();
-
-                const floor = path.getAttribute('floorNumber') ||
-                    (path.getAttribute('data-name') || '').match(/(\d+)/)?.[1];
-                const link = path.getAttribute('data-link');
-                if (!floor || !link) return;
-
-                sessionStorage.setItem('selectedTower', '11');
-                sessionStorage.setItem('selectedFloor', String(floor));
-                sessionStorage.setItem('fortmenTownsquareTower', '11');
-                sessionStorage.setItem('fortmenTownsquareFloor', String(floor));
-
-                const separator = link.includes('?') ? '&' : '?';
-                window.location.assign(link + separator + 'floor=' + encodeURIComponent(String(floor)));
-            }, true);
-        });
-    </script>
 
 <script type="module" src="../JS/FortmenTownsquareAnalytics.js"></script>
 </body>

@@ -26,7 +26,7 @@
       const target = new URL(link, window.location.href);
       const filename = target.pathname.split('/').pop();
       // Retail floor plans use Tower-AF/BF/CF; older plans use numeric names.
-      const retailMatch = filename.match(/^Tower-([ABC])F\.html$/i);
+      const retailMatch = filename.match(/^Tower-([ABC])F[12]?\.html$/i);
       const legacyMatch = filename.match(/^Tower[-_]?(C-12-A|[A-Z]|\d+A?)\.html$/i);
       let tower = retailMatch?.[1] || legacyMatch?.[1] || "";
       if (tower.toUpperCase() === 'C-12-A') tower = '12A';
@@ -39,7 +39,7 @@
 
       tower = String(tower).replace(/^Tower[-_ ]?/i, "").trim().toUpperCase();
 
-      if (!tower || !Number.isInteger(floor) || floor < 1 || floor > 32) {
+      if (!tower || !Number.isInteger(floor) || floor < 1 || floor > (retailMatch ? 3 : 32)) {
         console.warn("Floor navigation stopped:", { name, link, tower, floor });
         return;
       }
@@ -54,6 +54,10 @@
 
       target.searchParams.set("tower", tower);
       target.searchParams.set("floor", String(floor));
+      if (retailMatch) {
+        const suffix = floor === 1 ? '' : String(floor - 1);
+        target.pathname = target.pathname.replace(/[^/]+$/, 'Tower-' + tower + 'F' + suffix + '.html');
+      }
 
       window.location.href = target.href;
     });

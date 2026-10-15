@@ -614,27 +614,27 @@
                         <path id="2 Washroom 3" d="m3106.5 3022.7 1.6 144.3h376.3l-3.4-144.3z" class="st0" data-page-link="../Tower-A/360/Typical.html?room=bathroom_3" />
                         <path id="2 Washroom 2" d="M3336.7 2703.3v187.2h144.1l-3.7-187.2z" class="st0" data-page-link="../Tower-A/360/Typical.html?room=bathroom_2" /> -->
                        <path id="Anchor Restaurant"
-      d="M1635.33 1481.33 1634 1782.5l476.11-1.78v-295.11z"
+      d="m1503.44 1628 .34 378.67h602v-374.03z"
       class="st0" data-page-link="../Tower-A/360/Typical.html?room=restaurant" />
 
 <path id="Cosmetic-Hub"
-      d="M1634 1173.5v304.89h408.56l-1.78-304.89z"
+      d="M1503.51 1238.58v385.33h513.33v-385.33z"
       class="st0" data-page-link="../Tower-A/360/Typical.html?room=cosmetic" />
 
 <path id="Retail Men 1"
-      d="M1634 1019.28h405.89v149.78H1634z"
+      d="M1503.29 1044.03v191.33h513.56v-190.22z"
       class="st0" data-page-link="../Tower-A/360/Typical.html?room=men_1" />
 
 <path id="Retail Men 2"
-      d="M1634 865.06h405.89v149.78H1634z"
+      d="M1503.29 849.58v191h513.56v-191s-513.83-.28-513.56 0Z"
       class="st0" data-page-link="../Tower-A/360/Typical.html?room=men_2" />
 
 <path id="Retail Women 1"
-      d="M1634 710.39v150.22l406.11-.61-.22-149.61z"
+      d="M1503.29 654.58h513.56v191.56h-513.56z"
       class="st0" data-page-link="../Tower-A/360/Typical.html?room=women_1" />
 
 <path id="Retail Women 2"
-      d="m1634.61 545.56-.61 161.66 406.11-.5.39-161.16z"
+      d="M1503.29 447.81v203.78h513.56V447.81s-513.78-.22-513.56 0Z"
       class="st0" data-page-link="../Tower-A/360/Typical.html?room=women_2" />
                         <!-- <path id="2 Kids_Room" d="m2574.7 3179.9 409-3.2 3.2 314.5h-345.2v-203.4h-67z" class="st0" data-page-link="../Tower-A/360/Typical.html?room=room_3" />
                         <path id="2 Washroom 1" d="M2482.3 3296.7h148.1v194.6h-148.1z" class="st0" data-page-link="../Tower-A/360/Typical.html?room=bathroom_1" />
@@ -780,11 +780,7 @@ if (closeCard) {
             if (detailsBox) detailsBox.innerHTML = ``;
             const paths = document.querySelectorAll('.Cutout path');
 
-            const currentFile = window.location.pathname.split('/').pop();
-            const urlFloor = new URLSearchParams(window.location.search).get('floor');
-            const storedFloor = sessionStorage.getItem('fortmenTownsquareFloor');
-            const floorMatch = currentFile.match(/Floor_(\d+)/);
-            const currentFloor = urlFloor || storedFloor || (floorMatch ? floorMatch[1] : '1');
+            const currentFloor = '1';
 
             paths.forEach(path => {
                 // Appartment 1 and Appartment 2 are reserved for the existing unit system.
@@ -799,7 +795,7 @@ if (closeCard) {
                     e.preventDefault();
                     e.stopPropagation();
                     const url = new URL(link, window.location.href);
-                    url.searchParams.set('tower', '10');
+                    url.searchParams.set('tower', 'A');
                     url.searchParams.set('floor', currentFloor);
                     const unitMatch = String(path.id || '').trim().match(/^([12])\b/);
                     if (unitMatch) url.searchParams.set('unit', unitMatch[1]);
@@ -1109,13 +1105,13 @@ if (closeCard) {
 
             function targetPage() {
                 const map = {
-                    '9': '../9-12-Typical/Typical.html',
+                    '9': '../Tower-A/360/Typical.html',
                     '10': '../Tower-A/360/Typical.html',
-                    '11': '../Tower-B/360/Typical.html',
+                    '11': '../Tower-A/360/Typical.html',
                     '12': '../Tower-A/360/Typical.html',
-                    '12A': '../9-12-Typical/Typical.html'
+                    '12A': '../Tower-A/360/Typical.html'
                 };
-                return map[tower] || '../9-12-Typical/Typical.html';
+                return map[tower] || '../Tower-A/360/Typical.html';
             }
 
             document.querySelectorAll('.Cutout path[id*="Balcony"], .Cutout path[id*="balcony"]').forEach(path => {
@@ -1185,7 +1181,7 @@ if (closeCard) {
 
 
     <script src="JS/FortmenTownsquareFloorStatus.js"></script>
-    <script src="available-toggle.js?v=3"></script>
+    <script src="available-toggle.js?v=4"></script>
       <script>
 (function () {
 

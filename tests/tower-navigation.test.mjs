@@ -17,7 +17,7 @@ function page(t, html, file = 'Tower_B.html') {
     return dom.window;
 }
 
-for (const tower of ['B', 'C']) {
+for (const tower of ['A', 'B', 'C']) {
     test(`Tower ${tower}: every active SVG floor opens its existing plan with correct context`, t => {
         const file = `Tower_${tower}.html`;
         const fileURL = new URL(`../map/IPX/Subpages/${file}`, import.meta.url);
@@ -27,20 +27,23 @@ for (const tower of ['B', 'C']) {
         for (const path of paths) {
             path.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
             const target = new URL(window.destination);
-            assert.equal(target.pathname, `/preview/map/IPX/Subpages/Floor/Tower-${tower}F.html`);
-            const floor = path.getAttribute('data-name').match(/Floor_(\d+)/)[1];
+            const floor = String(Number(path.getAttribute('floorNumber') || path.getAttribute('floornumber')));
+            const suffix = floor === '1' ? '' : String(Number(floor) - 1);
+            assert.equal(path.getAttribute('data-name'), ['Ground Floor', 'First Floor', 'Second Floor'][Number(floor) - 1]);
+            assert.equal(path.getAttribute('data-link'), `Floor/Tower-${tower}F${suffix}.html`);
+            assert.equal(target.pathname, `/preview/map/IPX/Subpages/Floor/Tower-${tower}F${suffix}.html`);
             assert.equal(target.searchParams.get('floor'), floor);
             assert.equal(target.searchParams.get('tower'), tower);
             assert.equal(window.sessionStorage.getItem('selectedTower'), tower);
             assert.equal(window.sessionStorage.getItem('selectedFloor'), floor);
             assert.equal(window.document.querySelectorAll('.Cutout path.selected').length, 1);
-            assert.ok(existsSync(new URL(path.getAttribute('data-link'), fileURL)));
+            assert.ok(existsSync(new URL(`Floor/Tower-${tower}F${suffix}.html`, fileURL)));
         }
     });
 }
 
 test('Numeric and 12A plans keep the displayed floor and existing query parameters', t => {
-    for (const [filename, tower] of [['Tower-12.html', '12'], ['Tower-C-12-A.html', '12A'], ['Tower-AF.html', 'A']]) {
+    for (const [filename, tower] of [['Tower-12.html', '12'], ['Tower-C-12-A.html', '12A']]) {
         const window = page(t, `<div class="Cutout"><svg><path data-name="${tower}_Floor_24" floorNumber="09" data-link="Floor/${filename}?unit=2#plan" /></svg></div>`);
         window.document.querySelector('path').dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
         const target = new URL(window.destination);

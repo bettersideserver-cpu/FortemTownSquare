@@ -11,10 +11,12 @@
   };
 
   const file = location.pathname.split('/').pop();
-  const tower = towerMap[file] || '';
+  const retailFloor = file.match(/^Tower-([ABC])F([12]?)\.html$/i);
+  const tower = retailFloor ? retailFloor[1].toUpperCase() : towerMap[file] || '';
   const params = new URLSearchParams(location.search);
+  const retailLabels = ['GROUND FLOOR', 'FIRST FLOOR', 'SECOND FLOOR'];
 
-  const currentFloor = Math.max(
+  const currentFloor = retailFloor ? Number(retailFloor[2] || 0) + 1 : Math.max(
     1,
     Math.min(
       32,
@@ -26,6 +28,18 @@
       ) || 1
     )
   );
+
+  function floorLabelFor(floor) {
+    return retailFloor ? retailLabels[floor - 1] : 'FLOOR ' + String(floor).padStart(2, '0');
+  }
+
+  // The plan file is authoritative, even when arriving with stale stored context.
+  if (retailFloor) {
+    sessionStorage.setItem('selectedTower', tower);
+    sessionStorage.setItem('fortmenTownsquareTower', tower);
+    sessionStorage.setItem('selectedFloor', String(currentFloor));
+    sessionStorage.setItem('fortmenTownsquareFloor', String(currentFloor));
+  }
 
   function buildControls() {
     if (document.getElementById('hhFloorControls')) return;
@@ -45,12 +59,13 @@
 
     const floorLabel = document.createElement('span');
     floorLabel.id = 'hhFloorLabel';
-    floorLabel.textContent = 'FLOOR ' + String(currentFloor).padStart(2, '0');
+    floorLabel.style.whiteSpace = 'nowrap';
+    floorLabel.textContent = floorLabelFor(currentFloor);
 
     const arrow = document.createElement('span');
     arrow.id = 'hhFloorArrow';
     arrow.setAttribute('aria-hidden', 'true');
-    arrow.textContent = '⌄';
+    arrow.textContent = '\u2304';
 
     floorButton.append(floorLabel, arrow);
 
@@ -60,13 +75,13 @@
     menu.setAttribute('aria-label', 'Select floor');
     menu.hidden = true;
 
-    for (let i = 1; i <= 32; i++) {
+    for (let i = 1; i <= (retailFloor ? 3 : 32); i++) {
       const option = document.createElement('button');
       option.type = 'button';
       option.className = 'hhFloorOption';
       option.setAttribute('role', 'option');
       option.dataset.floor = String(i);
-      option.textContent = 'FLOOR ' + String(i).padStart(2, '0');
+      option.textContent = floorLabelFor(i);
 
       if (i === currentFloor) {
         option.classList.add('is-selected');
@@ -132,6 +147,10 @@
     sessionStorage.setItem('fortmenTownsquareFloor', floor);
 
     const u = new URL(location.href);
+    if (retailFloor) {
+      const suffix = Number(floor) === 1 ? '' : String(Number(floor) - 1);
+      u.pathname = u.pathname.replace(/[^/]+$/, 'Tower-' + tower + 'F' + suffix + '.html');
+    }
     u.searchParams.set('floor', floor);
 
     if (tower) u.searchParams.set('tower', tower);
