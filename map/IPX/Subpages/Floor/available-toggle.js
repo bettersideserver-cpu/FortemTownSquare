@@ -111,11 +111,11 @@
 
     /* AVAILABLE switch — starts OFF */
     const row = document.createElement('div');
-    row.id = 'hhAvailableRow';
+    // row.id = 'hhAvailableRow';
 
     const label = document.createElement('span');
     label.id = 'hhAvailableLabel';
-    label.textContent = 'AVAILABLE';
+    // label.textContent = 'AVAILABLE';
 
     const sw = document.createElement('label');
     sw.id = 'hhAvailableSwitch';

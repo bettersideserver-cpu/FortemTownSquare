@@ -6,6 +6,13 @@
         miniso: { name: 'miniso', image: 'miniso' },
       western: { name: ' western', image: ' western' },
          western_1: { name: 'western_1', image: 'western_1' },
+
+
+
+
+
+         //Balcony
+        //  w: { name: 'western_1', image: 'western_1' },
      
     };
     const params = new URLSearchParams(location.search);

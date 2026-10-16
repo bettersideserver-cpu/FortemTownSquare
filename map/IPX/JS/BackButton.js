@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const closeCard = document.getElementById("closeCard");
+
   if (closeCard) {
     closeCard.addEventListener("click", () => {
-      history.back();
+      window.location.href = "../index.html";
     });
   }
 });

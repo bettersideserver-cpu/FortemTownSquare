@@ -10,6 +10,7 @@
        western: { name: ' western', image: ' western' },
          western_1: { name: '  western_1', image: '  western_1' },
           western_2: { name: 'western_2', image: 'western_2' },
+          home: { name: 'home', image: 'home' },
      
     };
     const params = new URLSearchParams(location.search);
