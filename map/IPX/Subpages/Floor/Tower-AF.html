@@ -567,6 +567,50 @@
     </style>
     <link rel="stylesheet" href="../../JS/CSS/FortmenTownsquareTowerDetails.css">
     <script defer src="../../JS/FortmenTownsquareTowerDetails.js"></script>
+
+    <style>
+        /* Compact 360 medallions, locked to their shop positions in the SVG. */
+        .shop-tour-slot { overflow: visible; pointer-events: none; }
+        .shop-tour-button {
+            position: relative; box-sizing: border-box;
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; height: 100%; padding: 0;
+            scale: .85; transform-origin: center;
+            border: 2px solid #d7c49a; border-radius: 50%;
+            background: linear-gradient(145deg, #587765 0%, #2f4539 60%, #21382c 100%);
+            color: #fffdf6; font: 600 27px/1 Arial, sans-serif; letter-spacing: -.6px;
+            text-decoration: none; white-space: nowrap; pointer-events: auto;
+            box-shadow: inset 0 2px 2px #ffffff40, 0 6px 16px #17291f40;
+            isolation: isolate;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .shop-tour-button::before {
+            content: ''; position: absolute; inset: -8px;
+            border: 2px solid #ffffffb3; border-radius: inherit;
+            background: #ffffff14; z-index: -1;
+            transition: border-color .2s ease;
+        }
+        .shop-tour-button > span:last-child { transform: translateY(-7px); }
+        .shop-tour-icon {
+            position: absolute; left: 17px; bottom: 14px; width: 46px; height: 14px;
+            box-sizing: border-box; border: 3px solid #decea9;
+            border-top-color: transparent; border-radius: 50%;
+            font-size: 0; color: transparent;
+        }
+        .shop-tour-icon::after {
+            content: ''; position: absolute; right: -5px; top: -2px;
+            width: 0; height: 0; border-left: 7px solid #decea9;
+            border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+            transform: rotate(-35deg);
+        }
+        .shop-tour-button:hover { transform: translateY(-3px); box-shadow: inset 0 2px 2px #ffffff40, 0 10px 22px #17291f55; }
+        .shop-tour-button:hover::before { border-color: #eadab9; }
+        .shop-tour-button:focus-visible { outline: 5px solid #fff; outline-offset: 10px; }
+        .shop-tour-button:active { transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            .shop-tour-button, .shop-tour-button::before { transition: none; }
+        }
+    </style>
 </head>
 
 <body>
@@ -642,7 +686,45 @@
                         <path id="1 Kids_Room" d="m1391.5 3178.2-408.1-3.2-3.1 313.7h344.3v-202.9h66.9z" class="st0" data-page-link="../Tower-A/360/Typical.html?room=room_3" />
                         <path id="1 Washroom 1" d="M1335.9 3294.7h147.8v194h-147.8z" class="st0" data-page-link="../Tower-A/360/Typical.html?room=bathroom_1" />
                         <path id="1 Balcony 2" d="M1867 3483.8v134.7h-362.5v-136.3z" class="st0"/> -->
-                    </g>
+
+                        <!-- 360 BUTTON LINKS: replace each href below with your own tour URL. -->
+                        <foreignObject class="shop-tour-slot" x="2120" y="1775" width="84" height="84">
+                            <a xmlns="http://www.w3.org/1999/xhtml" class="shop-tour-button"
+                               href="#360-anchor-restaurant" aria-label="Open 360 degree tour for Anchor Restaurant" title="Anchor Restaurant - 360 degree tour">
+                                <span class="shop-tour-icon" aria-hidden="true">&#8635;</span><span>360&#176;</span>
+                            </a>
+                        </foreignObject>
+                        <foreignObject class="shop-tour-slot" x="2020" y="1389" width="84" height="84">
+                            <a xmlns="http://www.w3.org/1999/xhtml" class="shop-tour-button"
+                               href="#360-cosmetic-hub" aria-label="Open 360 degree tour for Cosmetic-Hub" title="Cosmetic-Hub - 360 degree tour">
+                                <span class="shop-tour-icon" aria-hidden="true">&#8635;</span><span>360&#176;</span>
+                            </a>
+                        </foreignObject>
+                        <foreignObject class="shop-tour-slot" x="2020" y="1098" width="84" height="84">
+                            <a xmlns="http://www.w3.org/1999/xhtml" class="shop-tour-button"
+                               href="#360-retail-men-1" aria-label="Open 360 degree tour for Retail Men 1" title="Retail Men 1 - 360 degree tour">
+                                <span class="shop-tour-icon" aria-hidden="true">&#8635;</span><span>360&#176;</span>
+                            </a>
+                        </foreignObject>
+                        <foreignObject class="shop-tour-slot" x="2020" y="903" width="84" height="84">
+                            <a xmlns="http://www.w3.org/1999/xhtml" class="shop-tour-button"
+                               href="#360-retail-men-2" aria-label="Open 360 degree tour for Retail Men 2" title="Retail Men 2 - 360 degree tour">
+                                <span class="shop-tour-icon" aria-hidden="true">&#8635;</span><span>360&#176;</span>
+                            </a>
+                        </foreignObject>
+                        <foreignObject class="shop-tour-slot" x="2020" y="708" width="84" height="84">
+                            <a xmlns="http://www.w3.org/1999/xhtml" class="shop-tour-button"
+                               href="#360-retail-women-1" aria-label="Open 360 degree tour for Retail Women 1" title="Retail Women 1 - 360 degree tour">
+                                <span class="shop-tour-icon" aria-hidden="true">&#8635;</span><span>360&#176;</span>
+                            </a>
+                        </foreignObject>
+                        <foreignObject class="shop-tour-slot" x="2020" y="508" width="84" height="84">
+                            <a xmlns="http://www.w3.org/1999/xhtml" class="shop-tour-button"
+                               href="#360-retail-women-2" aria-label="Open 360 degree tour for Retail Women 2" title="Retail Women 2 - 360 degree tour">
+                                <span class="shop-tour-icon" aria-hidden="true">&#8635;</span><span>360&#176;</span>
+                            </a>
+                        </foreignObject>
+</g>
                     <!-- <path id="Appartment 1" data-bhk="Penthouse" data-area="2595.24 sq ft"
                         data-link="../Tower-A/360/Typical.html"
                         d="M1884.1 3064.6v571.1h-551v-112.9H959.8v103H609.3v-104.2h-23.1l-14.6-19.9v-224h-95.4l-8.1-18.1v-564.5h118.1v-65.7h77.6v-25.7h285.5v93h42.9v91.4H1162v-67.4h433.5v-64.1h153.6v408.9z" />
@@ -650,6 +732,7 @@
                         data-link="../Tower-A/360/Typical.html"
                         d="M2097 3064.6v571.1h545.9v-112.9h369.8v103H3360v-104.2h22.9l14.4-19.9v-224h94.5l8-18.1v-564.5h-117v-65.7H3306v-25.7h-282.8v93h-42.5v91.4h-168.2v-67.4H2383v-64.1h-152.2v408.9z" />
                 </svg> -->
+                </svg>
             </div>
         </div>
     </div>
@@ -1269,6 +1352,15 @@
     </script>
     <script src="hh-mobile-stage-fix.js"></script>
     <script type="module" src="../../JS/FortmenTownsquareAnalytics.js"></script>
+    <script>
+        // Placeholder links stay on the plan. Replace an href above to enable its destination.
+        document.querySelectorAll('.shop-tour-button').forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                event.stopPropagation();
+                if (button.getAttribute('href').startsWith('#360-')) event.preventDefault();
+            });
+        });
+    </script>
 </body>
 
 </html>
