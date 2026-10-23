@@ -608,9 +608,10 @@
             .shop-tour-button, .shop-tour-button::before { transition: none; }
         }
     </style>
+    <link rel="stylesheet" href="shop-hover-details.css?v=1">
 </head>
 
-<body>
+<body data-shop-details>
     <!-- <div class="floor-badge">Floor 3</div> -->
 
 
@@ -651,30 +652,31 @@
 
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 3840 2160">
                     <!-- OFF-STATE CUSTOM SVG LAYER: manual floor-plan paths. Hidden when AVAILABLE is ON. -->
+                    <!-- Replace each shop's data-dimensions and data-area placeholders below with its actual values. -->
                     <g id="availableOffLayer">
                         <!-- <path id="2 Balcony_4" d="m3010 3628.6 347 2.9v-125.1h-347z" class="st0"  />
                         <path id="2 Bedroom_2" d="m2994.6 3176.7 4.9 314.5 371.3-1.6-3.6-312.9z" class="st0" data-page-link="../Tower-A-2/360/Typical.html?room=room_2" />
                         <path id="2 Washroom 3" d="m3106.5 3022.7 1.6 144.3h376.3l-3.4-144.3z" class="st0" data-page-link="../Tower-A-2/360/Typical.html?room=bathroom_3" />
                         <path id="2 Washroom 2" d="M3336.7 2703.3v187.2h144.1l-3.7-187.2z" class="st0" data-page-link="../Tower-A-2/360/Typical.html?room=bathroom_2" /> -->
-<path id="Anchor Restaurant"
+<path id="Club"
       d="M1502.94 1628.17h513.67v379.17h-513.67z"
       class="st0"
-      data-page-link="../Tower-A-2/360/Typical.html?room=restaurant" />
+      data-page-link="../Tower-A-2/360/Typical.html?room=club" data-dimensions="55 ft x 36'3 ft" data-area="2000 sq ft" />
 
-<path id="Cosmetic-Hub"
+<path id="club"
       d="M1503.44 1239.17l-.5 384.66 513.67-.22v-384.44z"
       class="st0"
-      data-page-link="../Tower-A-2/360/Typical.html?room=cosmetic" />
+      data-page-link="../Tower-A-2/360/Typical.html?room=cclub" data-dimensions="55 ft x 36'3 ft" data-area="2000 sq ft" />
 
 <path id="Fine Dine Restaurant "
       d="M1503.54 847.47h513.67v387.15h-513.67z"
       class="st0"
-      data-page-link="../Tower-A-2/360/Typical.html?room=women_1" />
+      data-page-link="../Tower-A-2/360/Typical.html?room=dine" data-dimensions="55 ft x 36'3 ft" data-area="2000 sq ft" />
 
 <path id="Fine Dine Restaurant 2"
       d="M1503.15 447.57l.39 395.61 513.67-.11v-395.5z"
       class="st0"
-      data-page-link="../Tower-A-2/360/Typical.html?room=women_2" />
+      data-page-link="../Tower-A-2/360/Typical.html?room=dine_2" data-dimensions="55 ft x 36'3 ft" data-area="2000 sq ft"  />
                         <!-- <path id="2 Kids_Room" d="m2574.7 3179.9 409-3.2 3.2 314.5h-345.2v-203.4h-67z" class="st0" data-page-link="../Tower-A-2/360/Typical.html?room=room_3" />
                         <path id="2 Washroom 1" d="M2482.3 3296.7h148.1v194.6h-148.1z" class="st0" data-page-link="../Tower-A-2/360/Typical.html?room=bathroom_1" />
                         <path id="2 Balcony 2" d="M2098 3486.4v135.1h363.3v-136.7z" class="st0" />
@@ -1014,6 +1016,7 @@ if (closeCard) {
             }
 
             document.querySelectorAll('.Cutout path').forEach(function (path) {
+                if (path.hasAttribute('data-dimensions')) return;
                 const bhk = path.getAttribute('data-bhk');
                 const area = path.getAttribute('data-area');
                 if (!bhk && !area) return;
@@ -1246,7 +1249,7 @@ if (closeCard) {
 
 
     <script src="JS/FortmenTownsquareFloorStatus.js"></script>
-    <script src="available-toggle.js?v=4"></script>
+    <script src="available-toggle.js?v=5"></script>
       <script>
 (function () {
 
@@ -1308,64 +1311,7 @@ if (closeCard) {
 
 })();
 </script>
-<script>
-(function () {
-
-    const tooltip = document.createElement('div');
-
-    tooltip.id = 'availableOffTooltip';
-
-    document.body.appendChild(tooltip);
-
-    const layer = document.getElementById('availableOffLayer');
-
-    if (!layer) return;
-
-    const shapes = layer.querySelectorAll(
-        'path, polygon, rect, circle, ellipse'
-    );
-
-    shapes.forEach(function (shape) {
-
-        shape.addEventListener('mouseenter', function (e) {
-
-           let name = shape.getAttribute('id');
-
-if (name) {
-    name = name.replace(/^[12]\s+/, '');
-}
-
-            if (!name) return;
-
-            // Clean the SVG ID
-            name = name
-                .replace(/_/g, ' ')
-                .replace(/\s+/g, ' ')
-                .trim();
-
-            tooltip.textContent = name;
-
-            tooltip.style.display = 'block';
-
-        });
-
-        shape.addEventListener('mousemove', function (e) {
-
-            tooltip.style.left = (e.clientX + 15) + 'px';
-            tooltip.style.top = (e.clientY + 15) + 'px';
-
-        });
-
-        shape.addEventListener('mouseleave', function () {
-
-            tooltip.style.display = 'none';
-
-        });
-
-    });
-
-})();
-</script>
+<script src="shop-hover-details.js?v=1"></script>
     <script src="hh-mobile-stage-fix.js"></script>
 <script type="module" src="../../JS/FortmenTownsquareAnalytics.js"></script>
     <script>

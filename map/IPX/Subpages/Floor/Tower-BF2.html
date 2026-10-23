@@ -610,9 +610,10 @@
             .shop-tour-button, .shop-tour-button::before { transition: none; }
         }
     </style>
+    <link rel="stylesheet" href="shop-hover-details.css?v=1">
 </head>
 
-<body>
+<body data-shop-details>
     <!-- <div class="floor-badge">Floor 3</div> -->
 
 
@@ -647,21 +648,22 @@
 
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 3840 2160">
                     <!-- OFF-STATE CUSTOM SVG LAYER: manual floor-plan paths. Hidden when AVAILABLE is ON. -->
+                    <!-- Replace each shop's data-dimensions and data-area placeholders below with its actual values. -->
                     <g id="availableOffLayer">
 <path id="Restaurant"
       d="m632.72 950.06-.11 250.55 446.17-.05v74.22l421.72-.22v-324.5l-867.83-.74z"
       class="st0"
-      data-page-link="../Tower-B - 2/360/Typical.html?room=restaurant" />
+      data-page-link="../Tower-B - 2/360/Typical.html?room=restaurant" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Restaurant 2"
       d="M1504.5 949.32v325.46l720.94-.15V949.74z"
       class="st0"
-      data-page-link="../Tower-B - 2/360/Typical.html?room=restaurant_1" />
+      data-page-link="../Tower-B - 2/360/Typical.html?room=restaurant_1" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Game Zone"
       d="M2410.11 713.6v40h-29.58v135.11h-67.84v385.78l806.23-.23 1.33-560.66z"
       class="st0"
-      data-page-link="../Tower-B - 2/360/Typical.html?room=game_zone" />
+      data-page-link="../Tower-B - 2/360/Typical.html?room=game_zone" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
                         <!-- <path id="1 Lobby" d="m1259.2 3094.4-35.5 90.7V3296h97.9v166.2h331.7v-367.8z" class="st0"
                             data-page-link="../Tower-B - 2/360/Typical.html?room=lobby" />
                         <path id="1 Balcony 2" d="M1320.7 3474.8v126.6H1655l-1.7-126.6z" class="st0" />
@@ -989,6 +991,7 @@ if (closeCard) {
             }
 
             document.querySelectorAll('.Cutout path').forEach(function (path) {
+                if (path.hasAttribute('data-dimensions')) return;
                 const bhk = path.getAttribute('data-bhk');
                 const area = path.getAttribute('data-area');
                 if (!bhk && !area) return;
@@ -1220,7 +1223,7 @@ if (closeCard) {
 
 
     <script src="JS/FortmenTownsquareFloorStatus.js"></script>
-    <script src="available-toggle.js?v=4"></script>
+    <script src="available-toggle.js?v=5"></script>
     <script>
         (function () {
 
@@ -1282,64 +1285,7 @@ if (closeCard) {
 
         })();
     </script>
-    <script>
-        (function () {
-
-            const tooltip = document.createElement('div');
-
-            tooltip.id = 'availableOffTooltip';
-
-            document.body.appendChild(tooltip);
-
-            const layer = document.getElementById('availableOffLayer');
-
-            if (!layer) return;
-
-            const shapes = layer.querySelectorAll(
-                'path, polygon, rect, circle, ellipse'
-            );
-
-            shapes.forEach(function (shape) {
-
-                shape.addEventListener('mouseenter', function (e) {
-
-                    let name = shape.getAttribute('id');
-
-                    if (name) {
-                        name = name.replace(/^[12]\s+/, '');
-                    }
-
-                    if (!name) return;
-
-                    // Clean the SVG ID
-                    name = name
-                        .replace(/_/g, ' ')
-                        .replace(/\s+/g, ' ')
-                        .trim();
-
-                    tooltip.textContent = name;
-
-                    tooltip.style.display = 'block';
-
-                });
-
-                shape.addEventListener('mousemove', function (e) {
-
-                    tooltip.style.left = (e.clientX + 15) + 'px';
-                    tooltip.style.top = (e.clientY + 15) + 'px';
-
-                });
-
-                shape.addEventListener('mouseleave', function () {
-
-                    tooltip.style.display = 'none';
-
-                });
-
-            });
-
-        })();
-    </script>
+    <script src="shop-hover-details.js?v=1"></script>
     <script src="hh-mobile-stage-fix.js"></script>
 <script type="module" src="../../JS/FortmenTownsquareAnalytics.js"></script>
     <script>

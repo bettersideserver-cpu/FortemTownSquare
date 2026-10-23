@@ -610,9 +610,10 @@
             .shop-tour-button, .shop-tour-button::before { transition: none; }
         }
     </style>
+    <link rel="stylesheet" href="shop-hover-details.css?v=1">
 </head>
 
-<body>
+<body data-shop-details>
     <!-- <div class="floor-badge">Floor 3</div> -->
 
 
@@ -647,62 +648,63 @@
 
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 3840 2160">
                     <!-- OFF-STATE CUSTOM SVG LAYER: manual floor-plan paths. Hidden when AVAILABLE is ON. -->
+                    <!-- Replace each shop's data-dimensions and data-area placeholders below with its actual values. -->
                     <g id="availableOffLayer">
   <path id="Apple Store "
       d="M632.67 950v251.33h446.67v72.89h247.56V950s-693.78-.44-694.22 0Z"
       class="st0"
-      data-page-link="../Tower-B/360/Typical.html?room=apple" />
+      data-page-link="../Tower-B/360/Typical.html?room=apple" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Women Skincare"
       d="M1330.67 949.8v324.42h170V950.66s-170-.17-170-.86Z"
       class="st0"
-      data-page-link="../Tower-B/360/Typical.html?room=skincare" />
+      data-page-link="../Tower-B/360/Typical.html?room=skincare" data-dimensions="55 ft x 18 ft" data-area="990 sq ft" />
 
 <path id="Cafe"
       d="M1504 1274.22V949.8h343.83v156.03h-174.17v168.39h-169.67Z"
       class="st0"
-      data-page-link="../Tower-B/360/Typical.html?room=cafe" />
+      data-page-link="../Tower-B/360/Typical.html?room=cafe" data-dimensions="55 ft x 18 ft" data-area="990 sq ft"  />
 
 <path id="Oud"
       d="M1847.83 1274.22V1109.5s-169.67-1.67-169.67-1.17V1275"
-      class="st0" />
+      class="st0" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Sunglass"
       d="M1851.17 1109v166h171.67v-166s-171.83.17-171.67 0Z"
-      class="st0" />
+      class="st0" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Pizza Shop"
       d="M1851.17 1104.78V949.8h358V1275h-183.11v-170z"
       class="st0"
-      data-page-link="../Tower-B/360/Typical.html?room=pizza" />
+      data-page-link="../Tower-B/360/Typical.html?room=pizza" data-dimensions="55 ft x 18 ft" data-area="990 sq ft" />
 
 <path id="This area is reserved by Owner"
       d="M2300.67 949.78V1275h127.11v-222.61h-56.67V949.78s-70.14.31-70.44 0Z"
-      class="st0" />
+      class="st0" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="South Indian Resturant"
       d="M2435.11 949.8V1275h169.78V949.8s-169.46.32-169.78 0Z"
       class="st0"
-      data-page-link="../Tower-B/360/Typical.html?room=south" />
+      data-page-link="../Tower-B/360/Typical.html?room=south" data-dimensions="88'9 ft x 18 ft" data-area="990 sq ft" />
 
 <path id="Tea hut"
       d="M2607.89 949.8V1275h170.33V949.78s-170.33.44-170.33.02Z"
       class="st0"
-      data-page-link="../Tower-B/360/Typical.html?room=tea" />
+      data-page-link="../Tower-B/360/Typical.html?room=tea" data-dimensions="55 ft x 18 ft" data-area="990 sq ft" />
 
 <path id="Pan Asian"
       d="M2781.22 713.72V1275h170V713.72s-170 .33-170 0Z"
       class="st0"
-      data-page-link="../Tower-B/360/Typical.html?room=pan" />
+      data-page-link="../Tower-B/360/Typical.html?room=pan" data-dimensions="88'9 ft x 18 ft" data-area="1600 sq ft" />
 
 <path id="North Indian Restaurant"
       d="M2954.89 713.72h164.33V1275h-164.33z"
       class="st0"
-      data-page-link="../Tower-B/360/Typical.html?room=north" />
+      data-page-link="../Tower-B/360/Typical.html?room=north" data-dimensions="88'9 ft x 18 ft" data-area="1600 sq ft" />
 
 <path id="This area is reserved by Owner "
       d="M2670.56 944.56h107.33V713.72"
-      class="st0" />
+      class="st0" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
                         <!-- <path id="1 Lobby" d="m1259.2 3094.4-35.5 90.7V3296h97.9v166.2h331.7v-367.8z" class="st0"
                             data-page-link="../Tower-B/360/Typical.html?room=lobby" />
                         <path id="1 Balcony 2" d="M1320.7 3474.8v126.6H1655l-1.7-126.6z" class="st0" />
@@ -759,6 +761,18 @@
                         <foreignObject class="shop-tour-slot" x="1547" y="1283" width="84" height="84">
                             <a xmlns="http://www.w3.org/1999/xhtml" class="shop-tour-button"
                                href="#360-cafe" aria-label="Open 360 degree tour for Cafe" title="Cafe - 360 degree tour">
+                                <span class="shop-tour-icon" aria-hidden="true">&#8635;</span><span>360&#176;</span>
+                            </a>
+                        </foreignObject>
+                        <foreignObject class="shop-tour-slot" x="1721" y="1283" width="84" height="84">
+                            <a xmlns="http://www.w3.org/1999/xhtml" class="shop-tour-button"
+                               href="#360-oud" aria-label="Open 360 degree tour for Oud" title="Oud - 360 degree tour">
+                                <span class="shop-tour-icon" aria-hidden="true">&#8635;</span><span>360&#176;</span>
+                            </a>
+                        </foreignObject>
+                        <foreignObject class="shop-tour-slot" x="1895" y="1283" width="84" height="84">
+                            <a xmlns="http://www.w3.org/1999/xhtml" class="shop-tour-button"
+                               href="#360-sunglass" aria-label="Open 360 degree tour for Sunglass" title="Sunglass - 360 degree tour">
                                 <span class="shop-tour-icon" aria-hidden="true">&#8635;</span><span>360&#176;</span>
                             </a>
                         </foreignObject>
@@ -1060,6 +1074,7 @@ if (closeCard) {
             }
 
             document.querySelectorAll('.Cutout path').forEach(function (path) {
+                if (path.hasAttribute('data-dimensions')) return;
                 const bhk = path.getAttribute('data-bhk');
                 const area = path.getAttribute('data-area');
                 if (!bhk && !area) return;
@@ -1291,7 +1306,7 @@ if (closeCard) {
 
 
     <script src="JS/FortmenTownsquareFloorStatus.js"></script>
-    <script src="available-toggle.js?v=4"></script>
+    <script src="available-toggle.js?v=5"></script>
     <script>
         (function () {
 
@@ -1353,64 +1368,7 @@ if (closeCard) {
 
         })();
     </script>
-    <script>
-        (function () {
-
-            const tooltip = document.createElement('div');
-
-            tooltip.id = 'availableOffTooltip';
-
-            document.body.appendChild(tooltip);
-
-            const layer = document.getElementById('availableOffLayer');
-
-            if (!layer) return;
-
-            const shapes = layer.querySelectorAll(
-                'path, polygon, rect, circle, ellipse'
-            );
-
-            shapes.forEach(function (shape) {
-
-                shape.addEventListener('mouseenter', function (e) {
-
-                    let name = shape.getAttribute('id');
-
-                    if (name) {
-                        name = name.replace(/^[12]\s+/, '');
-                    }
-
-                    if (!name) return;
-
-                    // Clean the SVG ID
-                    name = name
-                        .replace(/_/g, ' ')
-                        .replace(/\s+/g, ' ')
-                        .trim();
-
-                    tooltip.textContent = name;
-
-                    tooltip.style.display = 'block';
-
-                });
-
-                shape.addEventListener('mousemove', function (e) {
-
-                    tooltip.style.left = (e.clientX + 15) + 'px';
-                    tooltip.style.top = (e.clientY + 15) + 'px';
-
-                });
-
-                shape.addEventListener('mouseleave', function () {
-
-                    tooltip.style.display = 'none';
-
-                });
-
-            });
-
-        })();
-    </script>
+    <script src="shop-hover-details.js?v=1"></script>
     <script src="hh-mobile-stage-fix.js"></script>
 <script type="module" src="../../JS/FortmenTownsquareAnalytics.js"></script>
     <script>

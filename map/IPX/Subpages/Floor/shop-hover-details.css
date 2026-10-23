@@ -1,0 +1,24 @@
+#shopDetailsTooltip {
+    position: fixed;
+    z-index: 2147483647;
+    max-width: calc(100vw - 32px);
+    box-sizing: border-box;
+    padding: 11px 14px;
+    border: 1px solid #d7c49a80;
+    border-radius: 10px;
+    background: #2f4539f5;
+    color: #f7f5ed;
+    font: 400 12px/1.6 Arial, sans-serif;
+    box-shadow: 0 6px 20px #14271d30;
+    pointer-events: none;
+}
+#shopDetailsTooltip[hidden] { display: none !important; }
+#shopDetailsTooltip .shop-details-name {
+    display: block;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ffffff26;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+}

@@ -1,2 +1,4 @@
-export const SUPABASE_URL = 'https://lgsuzidpqnqgyqucrotx.supabase.co';
-export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_K587kfedNvRzY0t03KfAzQ_zVMjCcuS';
+// Disconnected. Fill in both values below to connect your new Supabase project.
+// Use the project URL and publishable key (never a service-role/secret key).
+export const SUPABASE_URL = '';
+export const SUPABASE_PUBLISHABLE_KEY = '';

@@ -9,7 +9,8 @@ const TIMEOUT = 30 * 60 * 1000;
 const rootPath = decodeURIComponent(new URL('../../../', import.meta.url).pathname);
 const route = decodeURIComponent(location.pathname).slice(rootPath.length);
 // Never record the public home page or admin, even if a cached page loads this script.
-const trackable = /^map\//i.test(route) && !/^map\/IPX\/admin(?:\/|$)/i.test(route);
+const trackable = !!(SUPABASE_URL.trim() && SUPABASE_PUBLISHABLE_KEY.trim())
+  && /^map\//i.test(route) && !/^map\/IPX\/admin(?:\/|$)/i.test(route);
 const read = (key, fallback = null) => {
   try { return JSON.parse(sessionStorage.getItem(key)) ?? fallback; } catch { return fallback; }
 };

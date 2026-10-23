@@ -610,9 +610,10 @@
             .shop-tour-button, .shop-tour-button::before { transition: none; }
         }
     </style>
+    <link rel="stylesheet" href="shop-hover-details.css?v=1">
 </head>
 
-<body>
+<body data-shop-details>
     <!-- <div class="floor-badge">Floor 3</div> -->
 
 
@@ -647,60 +648,61 @@
 
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 3840 2160">
                     <!-- OFF-STATE CUSTOM SVG LAYER: manual floor-plan paths. Hidden when AVAILABLE is ON. -->
+                    <!-- Replace each shop's data-dimensions and data-area placeholders below with its actual values. -->
                     <g id="availableOffLayer">
 <path id="Mother Care / Salon"
       d="m632.83 949.78.06 251.3 445.64-.33v74h247.89V949.78z"
       class="st0"
-      data-page-link="../Tower-B - 1/360/Typical.html?room=skincare" />
+      data-page-link="../Tower-B - 1/360/Typical.html?room=skincare" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Kids Store"
       d="M1330.75 949.78v324.97h170.22V949.78s-170.22.36-170.22 0Z"
       class="st0"
-      data-page-link="../Tower-B - 1/360/Typical.html?room=kids" />
+      data-page-link="../Tower-B - 1/360/Typical.html?room=kids" data-dimensions="55 ft x 18 ft" data-area="990 sq ft"  />
 
 <path id="Women Wear Western"
       d="M1504.25 949.78v324.97h170.39V949.78s-170.04-.35-170.39 0Z"
       class="st0"
-      data-page-link="../Tower-B - 1/360/Typical.html?room=women_western" />
+      data-page-link="../Tower-B - 1/360/Typical.html?room=women_western" data-dimensions="55 ft x 18 ft" data-area="990 sq ft"  />
 
 <path id="Women Wear Western 2"
       d="m1677.42 949.78.66 324.97h169.67V949.78z"
       class="st0"
-      data-page-link="../Tower-B - 1/360/Typical.html?room=women_western_2" />
+      data-page-link="../Tower-B - 1/360/Typical.html?room=women_western_2" data-dimensions="55 ft x 18 ft" data-area="990 sq ft"  />
 
 <path id="Home Products"
       d="M1851.42 949.78v324.97h360V949.62z"
       class="st0"
-      data-page-link="../Tower-B - 1/360/Typical.html?room=home" />
+      data-page-link="../Tower-B - 1/360/Typical.html?room=home" data-dimensions="55 ft x 18 ft" data-area="990 sq ft"  />
 
 <path id="Lingerie"
       d="M2300.42 949.62v325.13h127v-223.44l-55 2-1-103.69z"
       class="st0"
-      data-page-link="../Tower-B - 1/360/Typical.html?room=lingerie" />
+      data-page-link="../Tower-B - 1/360/Typical.html?room=lingerie" data-dimensions="55 ft x 12 ft" data-area="660 sq ft" />
 
 <path id="Ethnic Wear"
       d="M2434.69 949.62h170v325.13h-170z"
       class="st0"
-      data-page-link="../Tower-B - 1/360/Typical.html?room=ethnic" />
+      data-page-link="../Tower-B - 1/360/Typical.html?room=ethnic" data-dimensions="55 ft x 18 ft" data-area="990 sq ft" />
 
 <path id="Ethnic Wear 2"
       d="M2607.81 949.62v325.13h170.39V949.36s-171.06-.41-170.39.26Z"
       class="st0"
-      data-page-link="../Tower-B - 1/360/Typical.html?room=ethnic_2" />
+      data-page-link="../Tower-B - 1/360/Typical.html?room=ethnic_2" data-dimensions="55 ft x 18 ft" data-area="990 sq ft" />
 
-<path id="Women Ear"
+<path id="Women Wear"
       d="M2781.61 713.11v561.64h170.06V713.5z"
       class="st0"
-      data-page-link="../Tower-B - 1/360/Typical.html?room=women_ear" />
+      data-page-link="../Tower-B - 1/360/Typical.html?room=women_ear" data-dimensions="88'9 ft x 18 ft" data-area="1600 sq ft" />
 
 <path id="Women Wear"
       d="M2955.08 713.11h164.22v561.64h-164.22z"
       class="st0"
-      data-page-link="../Tower-B - 1/360/Typical.html?room=women_1" />
+      data-page-link="../Tower-B - 1/360/Typical.html?room=women_1" data-dimensions="88'9 ft x 18 ft" data-area="1600 sq ft" />
 
 <path id="Reserved"
       d="M2670.86 713.11h107.33v231.22h-107.33z"
-      class="st0" />
+      class="st0" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
                         <!-- <path id="1 Lobby" d="m1259.2 3094.4-35.5 90.7V3296h97.9v166.2h331.7v-367.8z" class="st0"
                             data-page-link="../Tower-B - 1/360/Typical.html?room=lobby" />
                         <path id="1 Balcony 2" d="M1320.7 3474.8v126.6H1655l-1.7-126.6z" class="st0" />
@@ -1070,6 +1072,7 @@ if (closeCard) {
             }
 
             document.querySelectorAll('.Cutout path').forEach(function (path) {
+                if (path.hasAttribute('data-dimensions')) return;
                 const bhk = path.getAttribute('data-bhk');
                 const area = path.getAttribute('data-area');
                 if (!bhk && !area) return;
@@ -1301,7 +1304,7 @@ if (closeCard) {
 
 
     <script src="JS/FortmenTownsquareFloorStatus.js"></script>
-    <script src="available-toggle.js?v=4"></script>
+    <script src="available-toggle.js?v=5"></script>
     <script>
         (function () {
 
@@ -1363,64 +1366,7 @@ if (closeCard) {
 
         })();
     </script>
-    <script>
-        (function () {
-
-            const tooltip = document.createElement('div');
-
-            tooltip.id = 'availableOffTooltip';
-
-            document.body.appendChild(tooltip);
-
-            const layer = document.getElementById('availableOffLayer');
-
-            if (!layer) return;
-
-            const shapes = layer.querySelectorAll(
-                'path, polygon, rect, circle, ellipse'
-            );
-
-            shapes.forEach(function (shape) {
-
-                shape.addEventListener('mouseenter', function (e) {
-
-                    let name = shape.getAttribute('id');
-
-                    if (name) {
-                        name = name.replace(/^[12]\s+/, '');
-                    }
-
-                    if (!name) return;
-
-                    // Clean the SVG ID
-                    name = name
-                        .replace(/_/g, ' ')
-                        .replace(/\s+/g, ' ')
-                        .trim();
-
-                    tooltip.textContent = name;
-
-                    tooltip.style.display = 'block';
-
-                });
-
-                shape.addEventListener('mousemove', function (e) {
-
-                    tooltip.style.left = (e.clientX + 15) + 'px';
-                    tooltip.style.top = (e.clientY + 15) + 'px';
-
-                });
-
-                shape.addEventListener('mouseleave', function () {
-
-                    tooltip.style.display = 'none';
-
-                });
-
-            });
-
-        })();
-    </script>
+    <script src="shop-hover-details.js?v=1"></script>
     <script src="hh-mobile-stage-fix.js"></script>
 <script type="module" src="../../JS/FortmenTownsquareAnalytics.js"></script>
     <script>

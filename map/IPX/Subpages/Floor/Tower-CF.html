@@ -610,9 +610,10 @@
             .shop-tour-button, .shop-tour-button::before { transition: none; }
         }
     </style>
+    <link rel="stylesheet" href="shop-hover-details.css?v=1">
 </head>
 
-<body>
+<body data-shop-details>
     <!-- <div class="floor-badge">Floor 3</div> -->
 
 
@@ -647,43 +648,44 @@
 
                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 3840 2160">
                     <!-- OFF-STATE CUSTOM SVG LAYER: manual floor-plan paths. Hidden when AVAILABLE is ON. -->
+                    <!-- Replace each shop's data-dimensions and data-area placeholders below with its actual values. -->
                     <g id="availableOffLayer">
   
 
 <path id="Cafe"
       d="M1084.67 1349.22v445.28h689.44v-445.28z"
       class="st0"
-      data-page-link="../Tower-C/360/Typical.html?room=cafe" />
+      data-page-link="../Tower-C/360/Typical.html?room=cafe" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Bakery+Restaurant"
       d="M1084.67 741.61v603.67h689.44V849.06l-273-.34.33-107.11z"
       class="st0"
-      data-page-link="../Tower-C/360/Typical.html?room=bakery" />
+      data-page-link="../Tower-C/360/Typical.html?room=bakery" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Desserts"
       d="m1784.06 581.28-.45 759.11h227.56V581.28z"
       class="st0"
-      data-page-link="../Tower-C/360/Typical.html?room=dessert" />
+      data-page-link="../Tower-C/360/Typical.html?room=dessert" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Italian"
       d="M2014.72 581.28v759.11h228.44V581.28s-227.78-.67-228.44 0Z"
       class="st0"
-      data-page-link="../Tower-C/360/Typical.html?room=italian" />
+      data-page-link="../Tower-C/360/Typical.html?room=italian" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Street Food"
       d="M2248.94 581.28v759.11h228.44V580.98s-229.11-.37-228.44.3Z"
       class="st0"
-      data-page-link="../Tower-C/360/Typical.html?room=street" />
+      data-page-link="../Tower-C/360/Typical.html?room=street" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Fine-Dine"
       d="m2481.39 580.98-.45 759.41h228.45V580.88z"
       class="st0"
-      data-page-link="../Tower-C/360/Typical.html?room=fine" />
+      data-page-link="../Tower-C/360/Typical.html?room=fine" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
 
 <path id="Fine Dine 2"
       d="m2715.28 581.28-1.34 759.11h220V581.28z"
       class="st0"
-      data-page-link="../Tower-C/360/Typical.html?room=fine_1" />
+      data-page-link="../Tower-C/360/Typical.html?room=fine_1" data-dimensions="XX ft x XX ft" data-area="XXXX sq ft" />
                         <!-- <path id="1 Kitchen"
                             d="M1169.2 3151.1v230.8h75.3V3498H1526l-.2-106.1-74.1-.4-1.9-128.6-105.6-1.3-.9-110.5z"
                             class="st0" data-page-link="../Tower-C/360/Typical.html?room=kitchen" />
@@ -1054,6 +1056,7 @@ if (closeCard) {
             }
 
             document.querySelectorAll('.Cutout path').forEach(function (path) {
+                if (path.hasAttribute('data-dimensions')) return;
                 const bhk = path.getAttribute('data-bhk');
                 const area = path.getAttribute('data-area');
                 if (!bhk && !area) return;
@@ -1285,7 +1288,7 @@ if (closeCard) {
 
 
     <script src="JS/FortmenTownsquareFloorStatus.js"></script>
-    <script src="available-toggle.js?v=4"></script>
+    <script src="available-toggle.js?v=5"></script>
     <script>
         (function () {
 
@@ -1347,64 +1350,7 @@ if (closeCard) {
 
         })();
     </script>
-    <script>
-        (function () {
-
-            const tooltip = document.createElement('div');
-
-            tooltip.id = 'availableOffTooltip';
-
-            document.body.appendChild(tooltip);
-
-            const layer = document.getElementById('availableOffLayer');
-
-            if (!layer) return;
-
-            const shapes = layer.querySelectorAll(
-                'path, polygon, rect, circle, ellipse'
-            );
-
-            shapes.forEach(function (shape) {
-
-                shape.addEventListener('mouseenter', function (e) {
-
-                    let name = shape.getAttribute('id');
-
-                    if (name) {
-                        name = name.replace(/^[12]\s+/, '');
-                    }
-
-                    if (!name) return;
-
-                    // Clean the SVG ID
-                    name = name
-                        .replace(/_/g, ' ')
-                        .replace(/\s+/g, ' ')
-                        .trim();
-
-                    tooltip.textContent = name;
-
-                    tooltip.style.display = 'block';
-
-                });
-
-                shape.addEventListener('mousemove', function (e) {
-
-                    tooltip.style.left = (e.clientX + 15) + 'px';
-                    tooltip.style.top = (e.clientY + 15) + 'px';
-
-                });
-
-                shape.addEventListener('mouseleave', function () {
-
-                    tooltip.style.display = 'none';
-
-                });
-
-            });
-
-        })();
-    </script>
+    <script src="shop-hover-details.js?v=1"></script>
     <script src="hh-mobile-stage-fix.js"></script>
 <script type="module" src="../../JS/FortmenTownsquareAnalytics.js"></script>
     <script>

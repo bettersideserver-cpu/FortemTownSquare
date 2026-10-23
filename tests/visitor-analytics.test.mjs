@@ -89,7 +89,10 @@ function tracker(storage = {}, options = {}) {
     return { ok: true };
   };
   for (const [key, value] of Object.entries(storage)) window.sessionStorage.setItem(key, value);
-  const source = trackerSource.replace(/^import .*;\r?\n/, "const SUPABASE_URL = 'http://local-supabase'; const SUPABASE_PUBLISHABLE_KEY = 'test-publishable-key';\n")
+  const config = options.disconnected
+    ? "const SUPABASE_URL = ''; const SUPABASE_PUBLISHABLE_KEY = '';\n"
+    : "const SUPABASE_URL = 'http://local-supabase'; const SUPABASE_PUBLISHABLE_KEY = 'test-publishable-key';\n";
+  const source = trackerSource.replace(/^import .*;\r?\n/, config)
     .replace('import.meta.url', "'http://localhost/FortmenTownsquare/map/IPX/JS/FortmenTownsquareAnalytics.js'");
   window.eval(source);
   return { dom, window, calls,
@@ -103,6 +106,20 @@ function tracker(storage = {}, options = {}) {
     storage() { return Object.fromEntries(Object.keys(window.sessionStorage).map(key => [key, window.sessionStorage.getItem(key)])); }
   };
 }
+
+test('Tracker: disconnected configuration never sends new or queued events', async t => {
+  const browser = tracker({ fortmenTownsquareAnalyticsQueue: JSON.stringify([{ id: 'pending-event' }]) }, { disconnected: true });
+  t.after(() => browser.dom.window.close());
+  browser.identify();
+  browser.tick();
+  browser.window.dispatchEvent(new browser.window.Event('online'));
+  browser.visibility('hidden');
+  browser.visibility('visible');
+  browser.window.dispatchEvent(new browser.window.Event('pagehide'));
+  await settle();
+  assert.deepEqual(browser.calls, []);
+  assert.equal(browser.storage().fortmenTownsquareAnalyticsQueue, JSON.stringify([{ id: 'pending-event' }]));
+});
 
 test('Tracker: identity, visible time, both balcony sides and session timeout', async t => {
   const browser = tracker(); t.after(() => browser.dom.window.close());

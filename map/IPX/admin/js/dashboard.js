@@ -2,7 +2,7 @@ import { supabase } from './supabase.js';
 import { initVisitorDetails, loadVisitorDetails } from './visitor-details.js';
 const $=id=>document.getElementById(id);let units=[],apartmentFloors=[],statuses=[];
 function toast(t){const e=$('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
-async function guard(){const {data:{session}}=await supabase.auth.getSession();if(!session){location.href='login.html';return false}return true}
+async function guard(){if(!supabase){location.href='login.html';return false}const {data:{session}}=await supabase.auth.getSession();if(!session){location.href='login.html';return false}return true}
 async function load(){
   const results=await Promise.all([
     supabase.from('status_categories').select('*').eq('active',true).order('sort_order').order('id'),
@@ -102,6 +102,7 @@ function escAttr(v){return esc(v)}
 function safeColor(c){return /^#[0-9a-f]{6}$/i.test(c||'')?c:'#22c55e'}
 
 
+if (supabase) {
 initVisitorDetails();
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
@@ -113,4 +114,5 @@ document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{
   if(b.dataset.page==='visitorDetails')loadVisitorDetails();
 });
 $('logout').onclick=async()=>{await supabase.auth.signOut();location.href='login.html'};
+}
 (async()=>{if(await guard()){startVisitorLiveRefresh();await load();}})();

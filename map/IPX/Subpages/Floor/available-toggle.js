@@ -235,6 +235,7 @@
 /* Show room name while hovering over an OFF-layer SVG shape */
 (function () {
     function initRoomTooltips() {
+        if (document.body.hasAttribute('data-shop-details')) return;
         const offLayer = document.getElementById('availableOffLayer');
         if (!offLayer) return;
 

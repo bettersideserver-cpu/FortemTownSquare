@@ -4,7 +4,7 @@ The existing admin panel now includes **Visitor Details**, using the same Supaba
 
 ## Activate in Supabase
 
-1. Open the existing FortmenTownsquare project in the [Supabase SQL Editor](https://supabase.com/dashboard/project/lgsuzidpqnqgyqucrotx/sql/new).
+1. Set your new project URL and publishable key in `js/config.js`, then open that project's SQL Editor from the [Supabase Dashboard](https://supabase.com/dashboard).
 2. Run the complete contents of `sql/visitor-analytics.sql` once. It is transactional and safe to run again.
 3. Deploy the updated FortmenTownsquare website files together (exclude the development-only `tests` folder), then sign in to `admin/index.html` and open **Visitor Details**.
 4. Open `map/index.html` or `map/index copy.html` and browse a tower, floor and tour. Before registration, **Visitor Details** shows the visitor's unique ID as their name. Submit the form on a Typical tour to attach their name, phone, email and city to the same ID and journey.
