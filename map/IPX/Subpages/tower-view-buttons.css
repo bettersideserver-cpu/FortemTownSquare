@@ -1,0 +1,52 @@
+/* Shared camera view controls. Change each page's anchor href to edit its destination. */
+body .side-360-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 120;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: auto;
+    height: auto;
+    padding: 8px;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+body .side-360-left { left: clamp(12px, 8vw, 184px); right: auto; }
+body .side-360-right { right: clamp(12px, 8vw, 184px); left: auto; }
+body .side-360-btn img {
+    display: block;
+    width: 54px;
+    height: 54px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 10px #0005);
+}
+body .side-360-btn::after {
+    display: block;
+    position: static;
+    padding: 9px 13px;
+    width: max-content;
+    border-radius: 5px;
+    background: white;
+    color: #292929;
+    font: 600 10px/1.2 Arial, sans-serif;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 1;
+    visibility: visible;
+    box-shadow: 0 4px 14px #0003;
+    pointer-events: none;
+}
+body .side-360-left::after { content: 'Left View'; }
+body .side-360-right::after { content: 'Right View'; }
+body .side-360-btn:hover::after { background: #2f4539; color: white; }
+body .side-360-btn:focus-visible { outline: 2px solid white; outline-offset: 4px; border-radius: 8px; }
+@media (max-width: 600px) {
+    body .side-360-btn { padding: 4px; gap: 6px; }
+    body .side-360-btn img { width: 44px; height: 44px; }
+    body .side-360-btn::after { font-size: 8px; padding: 7px 8px; letter-spacing: 1px; }
+}
