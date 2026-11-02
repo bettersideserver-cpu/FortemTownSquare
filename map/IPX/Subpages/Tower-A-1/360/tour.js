@@ -2,19 +2,170 @@
 (() => {
     'use strict';
     const scenes = {
-        bags: { name: 'bags', image: 'bags' },
-        miniso: { name: 'miniso', image: 'miniso' },
-      western: { name: ' western', image: ' western' },
-         western_1: { name: 'western_1', image: 'western_1' },
-
-
-
-
-
-         //Balcony
-        //  w: { name: 'western_1', image: 'western_1' },
-     
-    };
+        "restaurant": {
+                "name": "Anchor Restaurant",
+                "image": "restaurant"
+        },
+        "cosmetic": {
+                "name": "Cosmetic-Hub",
+                "image": "cosmetic"
+        },
+        "bags": {
+                "name": "Women Accessories",
+                "image": "bags"
+        },
+        "miniso": {
+                "name": "Miniso",
+                "image": "miniso"
+        },
+        "western": {
+                "name": "Women Western wear",
+                "image": "western"
+        },
+        "western_1": {
+                "name": "Women Western wear2",
+                "image": "western_1"
+        },
+        "A1_1_Balcony": {
+                "name": "Anchor Restaurant — Balcony",
+                "image": "A1_1_Balcony"
+        },
+        "A1_2_Balcony": {
+                "name": "Cosmetic-Hub — Balcony",
+                "image": "A1_2_Balcony"
+        },
+        "A1_4_Balcony": {
+                "name": "Women Western wear — Balcony",
+                "image": "A1_4_Balcony"
+        },
+        "A1_5_Balcony": {
+                "name": "Women Western wear2 — Balcony",
+                "image": "A1_5_Balcony"
+        },
+        "A1_6_Balcony": {
+                "name": "Miniso — Balcony",
+                "image": "A1_6_Balcony"
+        },
+        "A1_7_Balcony": {
+                "name": "Women Accessories — Balcony",
+                "image": "A1_7_Balcony"
+        }
+};
+    // MANUAL HOTSPOTS: edit x/y/z to position each marker inside its balcony 360.
+    // These are placeholder positions. 'target' is the scene opened on click.
+    // Add more objects to a scene's array for additional hotspots, or use [] for none.
+    // Edit target (scene ID), or href (page URL), and x/y/z for each button.
+    // #360- links are placeholders until you replace them.
+    const balconyHotspots = {
+        "restaurant": [
+                {
+                        "label": "360° — Anchor Restaurant — Balcony",
+                        "target": "A1_1_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "cosmetic": [
+                {
+                        "label": "360° — Cosmetic-Hub — Balcony",
+                        "target": "A1_2_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "bags": [
+                {
+                        "label": "360° — Women Accessories — Balcony",
+                        "target": "A1_7_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "miniso": [
+                {
+                        "label": "360° — Miniso — Balcony",
+                        "target": "A1_6_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "western": [
+                {
+                        "label": "360° — Women Western wear — Balcony",
+                        "target": "A1_4_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "western_1": [
+                {
+                        "label": "360° — Women Western wear2 — Balcony",
+                        "target": "A1_5_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "A1_1_Balcony": [
+                {
+                        "label": "360° — Anchor Restaurant",
+                        "target": "restaurant",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "A1_2_Balcony": [
+                {
+                        "label": "360° — Cosmetic-Hub",
+                        "target": "cosmetic",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "A1_4_Balcony": [
+                {
+                        "label": "360° — Women Western wear",
+                        "target": "western",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "A1_5_Balcony": [
+                {
+                        "label": "360° — Women Western wear2",
+                        "target": "western_1",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "A1_6_Balcony": [
+                {
+                        "label": "360° — Miniso",
+                        "target": "miniso",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "A1_7_Balcony": [
+                {
+                        "label": "360° — Women Accessories",
+                        "target": "bags",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ]
+};
     const params = new URLSearchParams(location.search);
     const status = document.getElementById('tourStatus');
     const pills = [...document.querySelectorAll('.tour-pill[data-room]')];
@@ -28,7 +179,7 @@
         status.hidden = !message;
     }
     document.getElementById('floorMapBtn').addEventListener('click', () => {
-        const destination = new URL('../../Floor/Tower-AF.html', location.href);
+        const destination = new URL('../../Floor/Tower-AF1.html', location.href);
         for (const key of ['floor', 'unit']) {
             const value = params.get(key) || sessionStorage.getItem(key === 'floor' ? 'selectedFloor' : 'selectedUnit');
             if (value) destination.searchParams.set(key, value);
@@ -105,6 +256,22 @@
         panoramas[key] = panorama;
         viewer.add(panorama);
     }
+    const hotspotIcon = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><circle cx="64" cy="64" r="59" fill="#2F4539" stroke="#d9c89f" stroke-width="3"/><text x="64" y="68" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="34" fill="white">360°</text><path d="M35 84 Q64 105 93 84 M84 84 H93 V93" fill="none" stroke="#d9c89f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    );
+    for (const [room, hotspots] of Object.entries(balconyHotspots)) {
+        for (const { label, target, href, x, y, z } of hotspots) {
+            if (!href && !hasScene(target)) continue;
+            const hotspot = new PANOLENS.Infospot(300, hotspotIcon);
+            hotspot.position.set(x, y, z);
+            hotspot.addHoverText(label);
+            hotspot.addEventListener('click', () => {
+                if (href) { if (!href.startsWith('#360-')) location.href = href; }
+                else goToRoom(target);
+            });
+            panoramas[room].add(hotspot);
+        }
+    }
     function goToRoom(room, remember = true) {
         if (!hasScene(room) || room === currentRoom) return;
         currentRoom = room;
@@ -117,8 +284,10 @@
         viewer.camera.updateProjectionMatrix();
         document.getElementById('cardName').textContent = scenes[room].name;
         document.getElementById('roomInfoCard').classList.add('visible');
+        // Balcony views belong to the same shop as their interior panorama.
+        const shopRoom = ({"A1_1_Balcony":"restaurant","A1_2_Balcony":"cosmetic","A1_4_Balcony":"western","A1_5_Balcony":"western_1","A1_6_Balcony":"miniso","A1_7_Balcony":"bags"})[room] || room;
         for (const pill of pills) {
-            const active = pill.dataset.room === room;
+            const active = pill.dataset.room === shopRoom;
             pill.classList.toggle('active', active);
             pill.setAttribute('aria-pressed', String(active));
         }
@@ -127,5 +296,5 @@
     }
     for (const pill of pills) pill.addEventListener('click', () => goToRoom(pill.dataset.room));
     const requestedRoom = params.get('room') === 'restaurent' ? 'restaurant' : params.get('room');
-    goToRoom(hasScene(requestedRoom) ? requestedRoom : 'cosmetic');
+    goToRoom(hasScene(requestedRoom) ? requestedRoom : "restaurant");
 })();

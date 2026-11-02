@@ -1073,6 +1073,52 @@
             object-fit: cover;
         }
 
+
+
+     @media (max-width: 768px) {
+
+  .walkthrough-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 13000;
+            background: rgba(4, 18, 13, 0.97);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+}
+
+
+            
+        .walkthrough-overlay.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .walkthrough-video-wrap {
+            width: 90vw;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+            border: 1px solid rgba(251, 247, 236, 0.14);
+            border-radius: var(--r-lg);
+            overflow: hidden;
+        }
+
+        .walkthrough-video-wrap video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #04120D;
+        }
+
+        }
+
+
+
+
+
         /* ═══ WALKTHROUGH ═══════════════════════════════ */
         .walkthrough-overlay {
             position: fixed;
@@ -1742,7 +1788,7 @@
         /* MOBILE — ZOOM IMAGE + SVG ONLY */
         @media (max-width: 768px) {
             .Front {
-                transform: translate(30px, 0px) scale(1.8);
+                transform: translate(30px, 0px) scale(1.2);
 
                 transform-origin: center center;
             }

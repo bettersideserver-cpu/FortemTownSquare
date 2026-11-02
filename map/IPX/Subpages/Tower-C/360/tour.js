@@ -1,15 +1,197 @@
-/* FortmenTownsquare — Tower A retail tour. */
+/* FortmenTownsquare — Tower C retail tour. */
 (() => {
     'use strict';
     const scenes = {
-        cafe: { name: 'cafe', image: 'cafe' },
-        bakery: { name: 'bakery', image: 'bakery' },
-        dessert: { name: 'dessert', image: 'dessert' },
-        italian: { name: 'italian', image: 'italian' },
-        street: { name: 'street', image: 'street' },
-        fine: { name: 'fine', image: 'fine' },
-        fine_1: { name: 'fine_1', image: 'fine_1' }
-    };
+        "cafe": {
+                "name": "Cafe",
+                "image": "cafe"
+        },
+        "bakery": {
+                "name": "Bakery+Restaurant",
+                "image": "bakery"
+        },
+        "dessert": {
+                "name": "Dessert",
+                "image": "dessert"
+        },
+        "italian": {
+                "name": "Italian Food",
+                "image": "italian"
+        },
+        "street": {
+                "name": "Street Food",
+                "image": "street"
+        },
+        "fine": {
+                "name": "Fine Dine",
+                "image": "fine"
+        },
+        "fine_1": {
+                "name": "Fine Dine 2",
+                "image": "fine_1"
+        },
+        "CG_25_Balcony": {
+                "name": "Cafe — Balcony",
+                "image": "CG_25_Balcony"
+        },
+        "CG_24_Balcony": {
+                "name": "Bakery+Restaurant — Balcony",
+                "image": "CG_24_Balcony"
+        },
+        "CG_23_Balcony": {
+                "name": "Dessert — Balcony",
+                "image": "CG_23_Balcony"
+        },
+        "CG_22_Balcony": {
+                "name": "Italian Food — Balcony",
+                "image": "CG_22_Balcony"
+        },
+        "CG_21_Balcony": {
+                "name": "Street Food — Balcony",
+                "image": "CG_21_Balcony"
+        },
+        "CG_20_Balcony": {
+                "name": "Fine Dine — Balcony",
+                "image": "CG_20_Balcony"
+        },
+        "CG_19_Balcony": {
+                "name": "Fine Dine 2 — Balcony",
+                "image": "CG_19_Balcony"
+        }
+};
+    // MANUAL HOTSPOTS: edit x/y/z to position each marker inside its balcony 360.
+    // These are placeholder positions. 'target' is the scene opened on click.
+    // Add more objects to a scene's array for additional hotspots, or use [] for none.
+    // Edit target (scene ID), or href (page URL), and x/y/z for each button.
+    // #360- links are placeholders until you replace them.
+    const balconyHotspots = {
+        "cafe": [
+                {
+                        "label": "360° — Cafe — Balcony",
+                        "target": "CG_25_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "bakery": [
+                {
+                        "label": "360° — Bakery+Restaurant — Balcony",
+                        "target": "CG_24_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "dessert": [
+                {
+                        "label": "360° — Dessert — Balcony",
+                        "target": "CG_23_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "italian": [
+                {
+                        "label": "360° — Italian Food — Balcony",
+                        "target": "CG_22_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "street": [
+                {
+                        "label": "360° — Street Food — Balcony",
+                        "target": "CG_21_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "fine": [
+                {
+                        "label": "360° — Fine Dine — Balcony",
+                        "target": "CG_20_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "fine_1": [
+                {
+                        "label": "360° — Fine Dine 2 — Balcony",
+                        "target": "CG_19_Balcony",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "CG_25_Balcony": [
+                {
+                        "label": "360° — Cafe",
+                        "target": "cafe",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "CG_24_Balcony": [
+                {
+                        "label": "360° — Bakery+Restaurant",
+                        "target": "bakery",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "CG_23_Balcony": [
+                {
+                        "label": "360° — Dessert",
+                        "target": "dessert",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "CG_22_Balcony": [
+                {
+                        "label": "360° — Italian Food",
+                        "target": "italian",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "CG_21_Balcony": [
+                {
+                        "label": "360° — Street Food",
+                        "target": "street",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "CG_20_Balcony": [
+                {
+                        "label": "360° — Fine Dine",
+                        "target": "fine",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "CG_19_Balcony": [
+                {
+                        "label": "360° — Fine Dine 2",
+                        "target": "fine_1",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ]
+};
     const params = new URLSearchParams(location.search);
     const status = document.getElementById('tourStatus');
     const pills = [...document.querySelectorAll('.tour-pill[data-room]')];
@@ -23,12 +205,12 @@
         status.hidden = !message;
     }
     document.getElementById('floorMapBtn').addEventListener('click', () => {
-        const destination = new URL('../../Floor/Tower-AF.html', location.href);
+        const destination = new URL('../../Floor/Tower-CF.html', location.href);
         for (const key of ['floor', 'unit']) {
             const value = params.get(key) || sessionStorage.getItem(key === 'floor' ? 'selectedFloor' : 'selectedUnit');
             if (value) destination.searchParams.set(key, value);
         }
-        destination.searchParams.set('tower', 'A');
+        destination.searchParams.set('tower', 'C');
         location.href = destination.href;
     });
     document.getElementById('backBtn').addEventListener('click', () => {
@@ -38,7 +220,7 @@
         } else if (history.length > 1) {
             history.back();
         } else {
-            location.href = '../../Tower_A.html';
+            location.href = '../../Tower_C.html';
         }
     });
     const nav = document.getElementById('tourNav');
@@ -60,7 +242,7 @@
         viewer = new PANOLENS.Viewer({ container: document.getElementById('viewer'), controlBar: false });
     } catch (error) {
         showStatus('The 360° viewer could not start. Please reload with WebGL enabled.');
-        console.error('Unable to start the Tower A tour:', error);
+        console.error('Unable to start the Tower C tour:', error);
         return;
     }
     viewer.camera.fov = 100;
@@ -100,6 +282,22 @@
         panoramas[key] = panorama;
         viewer.add(panorama);
     }
+    const hotspotIcon = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><circle cx="64" cy="64" r="59" fill="#2F4539" stroke="#d9c89f" stroke-width="3"/><text x="64" y="68" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="34" fill="white">360°</text><path d="M35 84 Q64 105 93 84 M84 84 H93 V93" fill="none" stroke="#d9c89f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    );
+    for (const [room, hotspots] of Object.entries(balconyHotspots)) {
+        for (const { label, target, href, x, y, z } of hotspots) {
+            if (!href && !hasScene(target)) continue;
+            const hotspot = new PANOLENS.Infospot(300, hotspotIcon);
+            hotspot.position.set(x, y, z);
+            hotspot.addHoverText(label);
+            hotspot.addEventListener('click', () => {
+                if (href) { if (!href.startsWith('#360-')) location.href = href; }
+                else goToRoom(target);
+            });
+            panoramas[room].add(hotspot);
+        }
+    }
     function goToRoom(room, remember = true) {
         if (!hasScene(room) || room === currentRoom) return;
         currentRoom = room;
@@ -112,15 +310,17 @@
         viewer.camera.updateProjectionMatrix();
         document.getElementById('cardName').textContent = scenes[room].name;
         document.getElementById('roomInfoCard').classList.add('visible');
+        // Balcony views belong to the same shop as their interior panorama.
+        const shopRoom = ({"CG_25_Balcony":"cafe","CG_24_Balcony":"bakery","CG_23_Balcony":"dessert","CG_22_Balcony":"italian","CG_21_Balcony":"street","CG_20_Balcony":"fine","CG_19_Balcony":"fine_1"})[room] || room;
         for (const pill of pills) {
-            const active = pill.dataset.room === room;
+            const active = pill.dataset.room === shopRoom;
             pill.classList.toggle('active', active);
             pill.setAttribute('aria-pressed', String(active));
         }
-        window.FortmenTownsquareAnalytics?.trackRoom(room, { tower: 'A' });
-        window.dispatchEvent(new CustomEvent('fortmen-townsquare:panorama-change', { detail: { room, tower: 'A' } }));
+        window.FortmenTownsquareAnalytics?.trackRoom(room, { tower: 'C' });
+        window.dispatchEvent(new CustomEvent('fortmen-townsquare:panorama-change', { detail: { room, tower: 'C' } }));
     }
     for (const pill of pills) pill.addEventListener('click', () => goToRoom(pill.dataset.room));
     const requestedRoom = params.get('room') === 'restaurent' ? 'restaurant' : params.get('room');
-    goToRoom(hasScene(requestedRoom) ? requestedRoom : 'cosmetic');
+    goToRoom(hasScene(requestedRoom) ? requestedRoom : "cafe");
 })();

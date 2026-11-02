@@ -1,17 +1,54 @@
-/* FortmenTownsquare — Tower A retail tour. */
+/* FortmenTownsquare — Tower B retail tour. */
 (() => {
     'use strict';
     const scenes = {
-        ethnic: { name: ' ethnic', image: ' ethnic' },
-        ethnic_1: { name: ' ethnic_1', image: ' ethnic_1' },
-      kids: { name: ' kids', image: ' kids' },
-        lingire: { name: 'lingire', image: 'lingire' },
-        salon: { name: ' salon', image: ' salon' },
-       western: { name: ' western', image: ' western' },
-         western_1: { name: '  western_1', image: '  western_1' },
-          western_2: { name: 'western_2', image: 'western_2' },
-     
-    };
+        "restaurant": {
+                "name": "Restaurant",
+                "image": "restaurant"
+        },
+        "restaurant_1": {
+                "name": "Restaurant 2",
+                "image": "restaurant_1"
+        },
+        "game": {
+                "name": "Game Zone",
+                "image": "game"
+        }
+};
+    // MANUAL HOTSPOTS: edit x/y/z to position each marker inside its balcony 360.
+    // These are placeholder positions. 'target' is the scene opened on click.
+    // Add more objects to a scene's array for additional hotspots, or use [] for none.
+    // Edit target (scene ID), or href (page URL), and x/y/z for each button.
+    // #360- links are placeholders until you replace them.
+    const balconyHotspots = {
+        "restaurant": [
+                {
+                        "label": "360° — Restaurant",
+                        "href": "#360-restaurant",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "restaurant_1": [
+                {
+                        "label": "360° — Restaurant 2",
+                        "href": "#360-restaurant_1",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ],
+        "game": [
+                {
+                        "label": "360° — Game Zone",
+                        "href": "#360-game",
+                        "x": 5000,
+                        "y": 0,
+                        "z": 0
+                }
+        ]
+};
     const params = new URLSearchParams(location.search);
     const status = document.getElementById('tourStatus');
     const pills = [...document.querySelectorAll('.tour-pill[data-room]')];
@@ -25,12 +62,12 @@
         status.hidden = !message;
     }
     document.getElementById('floorMapBtn').addEventListener('click', () => {
-        const destination = new URL('../../Floor/Tower-AF.html', location.href);
+        const destination = new URL('../../Floor/Tower-BF2.html', location.href);
         for (const key of ['floor', 'unit']) {
             const value = params.get(key) || sessionStorage.getItem(key === 'floor' ? 'selectedFloor' : 'selectedUnit');
             if (value) destination.searchParams.set(key, value);
         }
-        destination.searchParams.set('tower', 'A');
+        destination.searchParams.set('tower', 'B');
         location.href = destination.href;
     });
     document.getElementById('backBtn').addEventListener('click', () => {
@@ -40,7 +77,7 @@
         } else if (history.length > 1) {
             history.back();
         } else {
-            location.href = '../../Tower_A.html';
+            location.href = '../../Tower_B.html';
         }
     });
     const nav = document.getElementById('tourNav');
@@ -62,7 +99,7 @@
         viewer = new PANOLENS.Viewer({ container: document.getElementById('viewer'), controlBar: false });
     } catch (error) {
         showStatus('The 360° viewer could not start. Please reload with WebGL enabled.');
-        console.error('Unable to start the Tower A tour:', error);
+        console.error('Unable to start the Tower B tour:', error);
         return;
     }
     viewer.camera.fov = 100;
@@ -102,6 +139,22 @@
         panoramas[key] = panorama;
         viewer.add(panorama);
     }
+    const hotspotIcon = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><circle cx="64" cy="64" r="59" fill="#2F4539" stroke="#d9c89f" stroke-width="3"/><text x="64" y="68" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="34" fill="white">360°</text><path d="M35 84 Q64 105 93 84 M84 84 H93 V93" fill="none" stroke="#d9c89f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    );
+    for (const [room, hotspots] of Object.entries(balconyHotspots)) {
+        for (const { label, target, href, x, y, z } of hotspots) {
+            if (!href && !hasScene(target)) continue;
+            const hotspot = new PANOLENS.Infospot(300, hotspotIcon);
+            hotspot.position.set(x, y, z);
+            hotspot.addHoverText(label);
+            hotspot.addEventListener('click', () => {
+                if (href) { if (!href.startsWith('#360-')) location.href = href; }
+                else goToRoom(target);
+            });
+            panoramas[room].add(hotspot);
+        }
+    }
     function goToRoom(room, remember = true) {
         if (!hasScene(room) || room === currentRoom) return;
         currentRoom = room;
@@ -114,15 +167,17 @@
         viewer.camera.updateProjectionMatrix();
         document.getElementById('cardName').textContent = scenes[room].name;
         document.getElementById('roomInfoCard').classList.add('visible');
+        // Balcony views belong to the same shop as their interior panorama.
+        const shopRoom = ({})[room] || room;
         for (const pill of pills) {
-            const active = pill.dataset.room === room;
+            const active = pill.dataset.room === shopRoom;
             pill.classList.toggle('active', active);
             pill.setAttribute('aria-pressed', String(active));
         }
-        window.FortmenTownsquareAnalytics?.trackRoom(room, { tower: 'A' });
-        window.dispatchEvent(new CustomEvent('fortmen-townsquare:panorama-change', { detail: { room, tower: 'A' } }));
+        window.FortmenTownsquareAnalytics?.trackRoom(room, { tower: 'B' });
+        window.dispatchEvent(new CustomEvent('fortmen-townsquare:panorama-change', { detail: { room, tower: 'B' } }));
     }
     for (const pill of pills) pill.addEventListener('click', () => goToRoom(pill.dataset.room));
     const requestedRoom = params.get('room') === 'restaurent' ? 'restaurant' : params.get('room');
-    goToRoom(hasScene(requestedRoom) ? requestedRoom : 'cosmetic');
+    goToRoom(hasScene(requestedRoom) ? requestedRoom : "restaurant");
 })();
