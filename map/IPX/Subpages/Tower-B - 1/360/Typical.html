@@ -1640,6 +1640,7 @@ background: rgba(18,35,30,.94);
         #tourStatus { position: fixed; top: 90px; left: 50%; transform: translateX(-50%); z-index: 10000; max-width: 85vw; padding: 12px 18px; border-radius: 12px; color: #fff; background: rgba(30,48,43,.9); text-align: center; }
         #tourStatus[hidden] { display: none; }
     </style>
+<link rel="stylesheet" href="../../panorama-info-card.css?v=2">
 </head>
 
 <body data-retail-tower="B" data-start-room="apple" data-overview="../../Tower_B.html">
@@ -1690,6 +1691,7 @@ background: rgba(18,35,30,.94);
     <!-- Bottom panel with room navigation pills -->
     <div class="tour-nav-wrap" id="tourNavWrap">
     <nav class="tour-nav" id="tourNav" aria-label="Retail panorama views">
+        <!-- <button type="button" class="tour-pill" data-room="saloon" aria-pressed="false">Saloon</button> -->
         <button type="button" class="tour-pill" data-room="ethnic" aria-pressed="false">Ethnic Wear</button>
         <button type="button" class="tour-pill" data-room="ethnic_1" aria-pressed="false">Ethnic Wear 2</button>
         <button type="button" class="tour-pill" data-room="kids" aria-pressed="false">Kids Store</button>
@@ -1720,7 +1722,9 @@ background: rgba(18,35,30,.94);
 
 
 <script type="module" src="../../../JS/FortmenTownsquareAnalytics.js"></script>
-<script src="tour.js?v=5"></script>
+<script src="tour.js?v=10"></script>
+<script src="../../../JS/PanoramaDimensions.js?v=1"></script>
+<script src="../../../JS/PanoramaInfoCard.js?v=1"></script>
 </body>
 
 </html>

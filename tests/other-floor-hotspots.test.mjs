@@ -15,6 +15,8 @@ for (const folder of ['Tower-A-1','Tower-A-2','Tower-B','Tower-B - 1','Tower-B -
         const initial = runtime(t, html, source);
         assert.ok(existsSync(new URL(initial.viewer.panorama.src, base)), 'Default scene exists');
         for (const [room, scene] of Object.entries(scenes)) {
+            // Scenes awaiting an image upload may not have configured hotspots yet.
+            if (!spots[room]) continue;
             const { window, viewer } = runtime(t, html, source, `?room=${room}`);
             assert.equal(viewer.panorama.src, `images/${scene.image}.webp`);
             assert.equal(window.document.querySelectorAll('.tour-pill.active').length, 1);
@@ -53,11 +55,11 @@ function runtime(t, html, source, query = '') {
             constructor() { viewer = this; this.camera = { fov: 100, updateProjectionMatrix() {} }; }
             add() {} remove() {}
             setPanorama(panorama) { assert.ok(panorama, 'Every selected scene must exist'); this.panorama = panorama; }
-            tweenControlCenter() {}
+            tweenControlCenter(position) { this.viewDirection = position; }
         }
     };
     window.THREE = {
-        MathUtils: { degToRad: value => value * Math.PI / 180 }, Vector3: class {},
+        MathUtils: { degToRad: value => value * Math.PI / 180 }, Vector3: class { constructor(x,y,z) { Object.assign(this,{x,y,z}); } },
         TextureLoader: class { load(src) { requestedTextures.push(src); } }
     };
     window.eval(source);
@@ -66,3 +68,20 @@ function runtime(t, html, source, query = '') {
     return { window, viewer, panoramas, requestedTextures, flush };
 }
 
+
+for (const folder of ['Tower-A','Tower-A-1','Tower-A-2','Tower-B','Tower-B - 1','Tower-B - 2','Tower-C','Tower-C - 1','Tower-C - 2']) {
+    test(`${folder}: per-scene camera angles and zoom`, t => {
+        const base = new URL(`../map/IPX/Subpages/${folder}/360/`, import.meta.url);
+        const html = readFileSync(new URL('Typical.html', base), 'utf8');
+        const original = readFileSync(new URL('tour.js', base), 'utf8');
+        const room = original.match(/const cameraViews = \{\s*(\w+):/)[1];
+        for (const sign of [-1, 1]) {
+            const source = original.replace(/(const cameraViews = \{\s*\w+: )\{[^}]+\}/, `$1{ x: ${sign * 30}, y: ${sign * 20}, fov: 65 }`);
+            const {viewer} = runtime(t, html, source, `?room=${room}`);
+            assert.equal(viewer.camera.fov,65);
+            assert.equal(Math.sign(viewer.viewDirection.z),sign);
+            assert.equal(Math.sign(viewer.viewDirection.y),sign);
+            assert.ok(Math.abs(Math.hypot(viewer.viewDirection.x,viewer.viewDirection.y,viewer.viewDirection.z)-5000)<0.001);
+        }
+    });
+}

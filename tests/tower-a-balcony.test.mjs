@@ -20,7 +20,7 @@ function runtime(t, html, source, query = '') {
     let viewer;
     const panoramas = [], requestedTextures = [];
     class Panorama extends window.EventTarget {
-        constructor(src) { super(); this.src = src; this.children = []; this.userData = {}; this.position = { set() {} }; panoramas.push(this); }
+        constructor(src) { super(); this.src = src; this.children = []; this.userData = {}; this.position = { set(x,y,z) { Object.assign(this,{x,y,z}); } }; panoramas.push(this); }
         add(child) { this.children.push(child); }
         addHoverText() {}
         load(src) { this.src = src; }
@@ -43,6 +43,19 @@ function runtime(t, html, source, query = '') {
     flush();
     return { window, viewer, panoramas, requestedTextures, flush };
 }
+
+test('Tower A hotspot X/Y angles control direction at a fixed distance and size is independent', t => {
+    const original = readFileSync(new URL('tour.js', tourURL), 'utf8');
+    for (const [x,y] of [[20,15],[-20,-15],[0,0]]) {
+        const source = original.replace(/x: [-\d.]+, y: [-\d.]+, size: [-\d.]+/, `x: ${x}, y: ${y}, size: 450`);
+        const {viewer} = runtime(t, retailHTML, source, '?room=restaurant');
+        const hotspot = viewer.panorama.children[0];
+        assert.equal(hotspot.src, 450);
+        assert.equal(Math.sign(hotspot.position.z), Math.sign(x));
+        assert.equal(Math.sign(hotspot.position.y), Math.sign(y));
+        assert.ok(Math.abs(Math.hypot(...['x','y','z'].map(k=>hotspot.position[k]))-5000)<0.001);
+    }
+});
 
 test('Tower A balcony direct links load existing images without bottom-bar entries and hotspots open interiors', t => {
     const source = readFileSync(new URL('tour.js', tourURL), 'utf8');

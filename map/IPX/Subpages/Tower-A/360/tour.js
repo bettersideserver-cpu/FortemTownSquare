@@ -3,46 +3,67 @@
     'use strict';
     const scenes = {
         restaurant: { name: 'restaurant', image: 'restaurant' },
-       cosmetic: { name: 'cosmetic', image: 'cosmetic' },
-      men_1: { name: 'men_1', image: 'men_1' },
+        cosmetic: { name: 'cosmetic', image: 'cosmetic' },
+        men_1: { name: 'men_1', image: 'men_1' },
         men_2: { name: 'men_2', image: 'men_2' },
-         women_1: { name: 'women_1', image: 'women_1' },
-          women_2: { name: 'women_2', image: 'women_2' },
+        women_1: { name: 'women_1', image: 'women_1' },
+        women_2: { name: 'women_2', image: 'women_2' },
 
 
 
 
-            AG_1_Balcony: { name: 'AG_1_Balcony', image: 'AG_1_Balcony' },
-            AG_2_Balcony: { name: 'AG_2_Balcony', image: 'AG_2_Balcony' },
-               AG_4_Balcony: { name: 'AG_4_Balcony', image: 'AG_4_Balcony' },
-                  AG_5_Balcony: { name: 'AG_5_Balcony', image: 'AG_5_Balcony' },
-                   AG_6_Balcony: { name: 'AG_6_Balcony', image: 'AG_6_Balcony' },
-                   AG_7_Balcony: { name: 'AG_7_Balcony', image: 'AG_7_Balcony' },
+        AG_1_Balcony: { name: 'AG_1_Balcony', image: 'AG_1_Balcony' },
+        AG_2_Balcony: { name: 'AG_2_Balcony', image: 'AG_2_Balcony' },
+        AG_4_Balcony: { name: 'AG_4_Balcony', image: 'AG_4_Balcony' },
+        AG_5_Balcony: { name: 'AG_5_Balcony', image: 'AG_5_Balcony' },
+        AG_6_Balcony: { name: 'AG_6_Balcony', image: 'AG_6_Balcony' },
+        AG_7_Balcony: { name: 'AG_7_Balcony', image: 'AG_7_Balcony' },
 
 
 
 
-         //Balcony
+        //Balcony
         //  w: { name: 'western_1', image: 'western_1' },
-     
+
     };
-    // MANUAL HOTSPOTS: edit x/y/z to position each marker inside its balcony 360.
-    // These are placeholder positions. 'target' is the scene opened on click.
+    // MANUAL HOTSPOTS (angles in degrees, relative to the starting view):
+    // x: 0 = centre, positive = right, negative = left (wraps around 360 degrees).
+    // y: 0 = level, positive = up, negative = down (limited to -89..89).
+    // size: icon size; 300 is the default. Larger numbers make a larger icon.
+    // 'target' is the scene opened on click. No z setting is needed.
     // Add more objects to a scene's array for additional hotspots, or use [] for none.
     const balconyHotspots = {
-        // Interior 360 buttons: set each target and x/y/z independently.
-        restaurant: [{ label: '360° — Anchor Restaurant balcony', target: 'AG_1_Balcony', x: 5000, y: 0, z: 0 }],
-        cosmetic: [{ label: '360° — Cosmetic-Hub balcony', target: 'AG_2_Balcony', x: 5000, y: 0, z: 0 }],
-        men_1: [{ label: '360° — Retail Men 1 balcony', target: 'AG_4_Balcony', x: 5000, y: 0, z: 0 }],
-        men_2: [{ label: '360° — Retail Men 2 balcony', target: 'AG_5_Balcony', x: 5000, y: 0, z: 0 }],
-        women_1: [{ label: '360° — Retail Women 1 balcony', target: 'AG_6_Balcony', x: 5000, y: 0, z: 0 }],
-        women_2: [{ label: '360° — Retail Women 2 balcony', target: 'AG_7_Balcony', x: 5000, y: 0, z: 0 }],
-        AG_1_Balcony: [{ label: 'Enter Anchor Restaurant', target: 'restaurant', x: 5000, y: 0, z: 0 }],
-        AG_2_Balcony: [{ label: 'Enter Cosmetic-Hub', target: 'cosmetic', x: 5000, y: 0, z: 0 }],
-        AG_4_Balcony: [{ label: 'Enter Retail Men 1', target: 'men_1', x: 5000, y: 0, z: 0 }],
-        AG_5_Balcony: [{ label: 'Enter Retail Men 2', target: 'men_2', x: 5000, y: 0, z: 0 }],
-        AG_6_Balcony: [{ label: 'Enter Retail Women 1', target: 'women_1', x: 5000, y: 0, z: 0 }],
-        AG_7_Balcony: [{ label: 'Enter Retail Women 2', target: 'women_2', x: 5000, y: 0, z: 0 }]
+        // Each button has its own x, y and size.
+        restaurant: [{ label: '360° — Anchor Restaurant balcony', target: 'AG_1_Balcony', x: 168, y: -5, size: 474.34 }],
+        cosmetic: [{ label: '360° — Cosmetic-Hub balcony', target: 'AG_2_Balcony', x: 0, y: 0, size: 300 }],
+        men_1: [{ label: '360° — Retail Men 1 balcony', target: 'AG_4_Balcony', x: 0, y: 0, size: 300 }],
+        men_2: [{ label: '360° — Retail Men 2 balcony', target: 'AG_5_Balcony', x: 0, y: 0, size: 300 }],
+        women_1: [{ label: '360° — Retail Women 1 balcony', target: 'AG_6_Balcony', x: 0, y: 0, size: 300 }],
+        women_2: [{ label: '360° — Retail Women 2 balcony', target: 'AG_7_Balcony', x: 0, y: 0, size: 300 }],
+        AG_1_Balcony: [{ label: 'Enter Anchor Restaurant', target: 'restaurant', x: 0, y: 0, size: 300 }],
+        AG_2_Balcony: [{ label: 'Enter Cosmetic-Hub', target: 'cosmetic', x: 0, y: 0, size: 300 }],
+        AG_4_Balcony: [{ label: 'Enter Retail Men 1', target: 'men_1', x: 0, y: 0, size: 300 }],
+        AG_5_Balcony: [{ label: 'Enter Retail Men 2', target: 'men_2', x: 0, y: 0, size: 300 }],
+        AG_6_Balcony: [{ label: 'Enter Retail Women 1', target: 'women_1', x: 0, y: 0, size: 300 }],
+        AG_7_Balcony: [{ label: 'Enter Retail Women 2', target: 'women_2', x: 0, y: 0, size: 300 }]
+    };
+    // STARTING CAMERA for each interior and balcony (angles in degrees).
+    // x: +right / -left. y: +up / -down. 0,0 faces the original direction.
+    // fov: smaller = zoom in, larger = zoom out (30..120; default 100).
+    // These settings apply whenever the scene opens; hotspot positions stay independent.
+    const cameraViews = {
+        restaurant: { x: 0, y: 0, fov: 100 },
+        cosmetic: { x: 0, y: 0, fov: 100 },
+        men_1: { x: 0, y: 0, fov: 100 },
+        men_2: { x: 0, y: 0, fov: 100 },
+        women_1: { x: 0, y: 0, fov: 100 },
+        women_2: { x: 0, y: 0, fov: 100 },
+        AG_1_Balcony: { x: 0, y: 0, fov: 100 },
+        AG_2_Balcony: { x: 0, y: 0, fov: 100 },
+        AG_4_Balcony: { x: 0, y: 0, fov: 100 },
+        AG_5_Balcony: { x: 0, y: 0, fov: 100 },
+        AG_6_Balcony: { x: 0, y: 0, fov: 100 },
+        AG_7_Balcony: { x: 0, y: 0, fov: 100 }
     };
     const params = new URLSearchParams(location.search);
     const status = document.getElementById('tourStatus');
@@ -138,10 +159,18 @@
         '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><circle cx="64" cy="64" r="59" fill="#2F4539" stroke="#d9c89f" stroke-width="3"/><text x="64" y="68" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="34" fill="white">360°</text><path d="M35 84 Q64 105 93 84 M84 84 H93 V93" fill="none" stroke="#d9c89f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     );
     for (const [room, hotspots] of Object.entries(balconyHotspots)) {
-        for (const { label, target, x, y, z } of hotspots) {
+        for (const { label, target, x = 0, y = 0, size = 300 } of hotspots) {
             if (!hasScene(target)) continue;
-            const hotspot = new PANOLENS.Infospot(300, hotspotIcon);
-            hotspot.position.set(x, y, z);
+            const hotspot = new PANOLENS.Infospot(size, hotspotIcon);
+            // Convert the two editable angles to a fixed-distance panorama position.
+            const horizontal = x * Math.PI / 180;
+            const vertical = Math.max(-89, Math.min(89, y)) * Math.PI / 180;
+            const radius = 5000;
+            hotspot.position.set(
+                radius * Math.cos(vertical) * Math.cos(horizontal),
+                radius * Math.sin(vertical),
+                radius * Math.cos(vertical) * Math.sin(horizontal)
+            );
             hotspot.addHoverText(label);
             hotspot.addEventListener('click', () => goToRoom(target));
             panoramas[room].add(hotspot);
@@ -154,8 +183,15 @@
         const panorama = panoramas[room];
         showStatus(panorama.loaded ? '' : `Loading ${scenes[room].name}…`);
         viewer.setPanorama(panorama);
-        viewer.tweenControlCenter(new THREE.Vector3(5000, 0, 0), 0);
-        viewer.camera.fov = 100;
+        const cameraView = cameraViews[room] || { x: 0, y: 0, fov: 100 };
+        const yaw = cameraView.x * Math.PI / 180;
+        const pitch = Math.max(-89, Math.min(89, cameraView.y)) * Math.PI / 180;
+        viewer.tweenControlCenter(new THREE.Vector3(
+            5000 * Math.cos(pitch) * Math.cos(yaw),
+            5000 * Math.sin(pitch),
+            5000 * Math.cos(pitch) * Math.sin(yaw)
+        ), 0);
+        viewer.camera.fov = Math.max(30, Math.min(120, cameraView.fov));
         viewer.camera.updateProjectionMatrix();
         document.getElementById('cardName').textContent = scenes[room].name;
         document.getElementById('roomInfoCard').classList.add('visible');

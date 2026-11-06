@@ -83,193 +83,221 @@
                 "image": "BG_17_Balcony"
         }
 };
-    // MANUAL HOTSPOTS: edit x/y/z to position each marker inside its balcony 360.
+    // MANUAL HOTSPOTS: edit x/y angles in degrees and size for each marker.
     // These are placeholder positions. 'target' is the scene opened on click.
     // Add more objects to a scene's array for additional hotspots, or use [] for none.
-    // Edit target (scene ID), or href (page URL), and x/y/z for each button.
+    // Edit target (scene ID), or href (page URL), and x/y/size for each button.
+    // +X = right, -X = left; +Y = up, -Y = down, relative to the starting view.
+    // x=0, y=0 is centre. Larger size makes a larger icon (default 300).
     // #360- links are placeholders until you replace them.
     const balconyHotspots = {
         "apple": [
                 {
                         "label": "360° — Apple Store/ Sports MBD — Balcony",
                         "target": "BG_8_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "skincare": [
                 {
                         "label": "360° — Women's Skincare — Balcony",
                         "target": "BG_9_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "cafe": [
                 {
                         "label": "360° — Cafe — Balcony",
                         "target": "BG_10_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "pizza": [
                 {
                         "label": "360° — Pizza Express — Balcony",
                         "target": "BG_12_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "udd": [
                 {
                         "label": "360° — Oud Store — Balcony",
                         "target": "BG_11_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 180.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "sunglass": [
                 {
                         "label": "360° — Sunglass Store — Balcony",
                         "target": "BG_13_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "south": [
                 {
                         "label": "360° — South Indian — Balcony",
                         "target": "BG_14_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "tea": [
                 {
                         "label": "360° — Tea — Balcony",
                         "target": "BG_15_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "pan": [
                 {
                         "label": "360° — Pan Area — Balcony",
                         "target": "BG_16_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "north": [
                 {
                         "label": "360° — North Indian — Balcony",
                         "target": "BG_17_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "BG_8_Balcony": [
                 {
                         "label": "360° — Apple Store/ Sports MBD",
                         "target": "apple",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "BG_9_Balcony": [
                 {
                         "label": "360° — Women's Skincare",
                         "target": "skincare",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "BG_10_Balcony": [
                 {
                         "label": "360° — Cafe",
                         "target": "cafe",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 2.0,
+                        "y": -2.0,
+                        "size": 300.0
                 }
         ],
         "BG_11_Balcony": [
                 {
                         "label": "360° — Oud Store",
                         "target": "udd",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 3.3,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "BG_12_Balcony": [
                 {
                         "label": "360° — Pizza Express",
                         "target": "pizza",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 1.0,
+                        "y": -6.0,
+                        "size": 300.0
                 }
         ],
         "BG_13_Balcony": [
                 {
                         "label": "360° — Sunglass Store",
                         "target": "sunglass",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 600.0
                 }
         ],
         "BG_14_Balcony": [
                 {
                         "label": "360° — South Indian",
                         "target": "south",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "BG_15_Balcony": [
                 {
                         "label": "360° — Tea",
                         "target": "tea",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": -4.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "BG_16_Balcony": [
                 {
                         "label": "360° — Pan Area",
                         "target": "pan",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "BG_17_Balcony": [
                 {
                         "label": "360° — North Indian",
                         "target": "north",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": -6.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ]
 };
+    // STARTING CAMERA for each interior and balcony (angles in degrees).
+    // x: +right / -left. y: +up / -down. 0,0 faces the original direction.
+    // fov: smaller = zoom in, larger = zoom out (30..120; default 100).
+    // These settings apply whenever the scene opens; hotspot positions stay independent.
+    const cameraViews = {
+        apple: { x: 0, y: 0, fov: 100 },
+        skincare: { x: 0, y: 0, fov: 100 },
+        cafe: { x: 0, y: 0, fov: 100 },
+        pizza: { x: 0, y: 0, fov: 100 },
+        udd: { x: 0, y: 0, fov: 100 },
+        sunglass: { x: 0, y: 0, fov: 100 },
+        south: { x: 0, y: 0, fov: 100 },
+        tea: { x: 0, y: 0, fov: 100 },
+        pan: { x: 0, y: 0, fov: 100 },
+        north: { x: 0, y: 0, fov: 100 },
+        BG_8_Balcony: { x: 0, y: 0, fov: 100 },
+        BG_9_Balcony: { x: 0, y: 0, fov: 100 },
+        BG_10_Balcony: { x: 0, y: 0, fov: 100 },
+        BG_11_Balcony: { x: 0, y: 0, fov: 100 },
+        BG_12_Balcony: { x: 0, y: 0, fov: 100 },
+        BG_13_Balcony: { x: 0, y: 0, fov: 100 },
+        BG_14_Balcony: { x: 0, y: 0, fov: 100 },
+        BG_15_Balcony: { x: 0, y: 0, fov: 100 },
+        BG_16_Balcony: { x: 0, y: 0, fov: 100 },
+        BG_17_Balcony: { x: 0, y: 0, fov: 100 }
+    };
     const params = new URLSearchParams(location.search);
     const status = document.getElementById('tourStatus');
     const pills = [...document.querySelectorAll('.tour-pill[data-room]')];
@@ -364,10 +392,17 @@
         '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><circle cx="64" cy="64" r="59" fill="#2F4539" stroke="#d9c89f" stroke-width="3"/><text x="64" y="68" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="34" fill="white">360°</text><path d="M35 84 Q64 105 93 84 M84 84 H93 V93" fill="none" stroke="#d9c89f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     );
     for (const [room, hotspots] of Object.entries(balconyHotspots)) {
-        for (const { label, target, href, x, y, z } of hotspots) {
+        for (const { label, target, href, x = 0, y = 0, size = 300 } of hotspots) {
             if (!href && !hasScene(target)) continue;
-            const hotspot = new PANOLENS.Infospot(300, hotspotIcon);
-            hotspot.position.set(x, y, z);
+            const hotspot = new PANOLENS.Infospot(size, hotspotIcon);
+            const horizontal = x * Math.PI / 180;
+            const vertical = Math.max(-89, Math.min(89, y)) * Math.PI / 180;
+            const radius = 5000;
+            hotspot.position.set(
+                radius * Math.cos(vertical) * Math.cos(horizontal),
+                radius * Math.sin(vertical),
+                radius * Math.cos(vertical) * Math.sin(horizontal)
+            );
             hotspot.addHoverText(label);
             hotspot.addEventListener('click', () => {
                 if (href) { if (!href.startsWith('#360-')) location.href = href; }
@@ -383,8 +418,15 @@
         const panorama = panoramas[room];
         showStatus(panorama.loaded ? '' : `Loading ${scenes[room].name}…`);
         viewer.setPanorama(panorama);
-        viewer.tweenControlCenter(new THREE.Vector3(5000, 0, 0), 0);
-        viewer.camera.fov = 100;
+        const cameraView = cameraViews[room] || { x: 0, y: 0, fov: 100 };
+        const yaw = cameraView.x * Math.PI / 180;
+        const pitch = Math.max(-89, Math.min(89, cameraView.y)) * Math.PI / 180;
+        viewer.tweenControlCenter(new THREE.Vector3(
+            5000 * Math.cos(pitch) * Math.cos(yaw),
+            5000 * Math.sin(pitch),
+            5000 * Math.cos(pitch) * Math.sin(yaw)
+        ), 0);
+        viewer.camera.fov = Math.max(30, Math.min(120, cameraView.fov));
         viewer.camera.updateProjectionMatrix();
         document.getElementById('cardName').textContent = scenes[room].name;
         document.getElementById('roomInfoCard').classList.add('visible');

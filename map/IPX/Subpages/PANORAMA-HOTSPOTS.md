@@ -1,9 +1,12 @@
 # Edit the 360 buttons
 
+All tower floors use `x` and `y` in degrees plus `size`: positive X is right, negative X left, positive Y up, negative Y down relative to the starting view. There is no editable Z. Size defaults to 300.
+
 Each tower/floor's `360/tour.js` contains its own `balconyHotspots` settings.
 Each scene has an array of buttons, so positions and destinations are independent.
 
-- `x`, `y`, `z`: position inside the panorama; current positions are placeholders.
+- `x`, `y`: horizontal and vertical angles; `0, 0` is the centre of the starting view.
+- `size`: icon size; larger values make it bigger.
 - `target`: another scene ID from that file's `scenes` list.
 - `href`: a page URL instead of a scene. Replace the `#360-...` placeholder with your URL; placeholder buttons stay in the current view.
 - `label`: hover text.

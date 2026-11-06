@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {JSDOM} from 'jsdom';
+test('Shop info shows readable name, dimensions and updates on scene changes', t => {
+    const base = new URL('../map/IPX/', import.meta.url);
+    const html = readFileSync(new URL('Subpages/Tower-B - 1/360/Typical.html',base),'utf8');
+    const dom = new JSDOM(html,{url:'https://example.test/map/IPX/Subpages/Tower-B%20-%201/360/Typical.html',runScripts:'outside-only'});
+    t.after(()=>dom.window.close());
+    const w=dom.window;
+    const pill=w.document.querySelector('[data-room="western_2"]');
+    pill.classList.add('active');
+    w.eval(readFileSync(new URL('JS/PanoramaDimensions.js',base),'utf8'));
+    w.eval(readFileSync(new URL('JS/PanoramaInfoCard.js',base),'utf8'));
+    assert.equal(w.document.querySelector('#cardName').textContent,pill.textContent.trim());
+    assert.equal(w.document.querySelector('.panorama-dimensions-value').textContent,'88′ 9″ × 18 ft');
+    pill.classList.remove('active');
+    w.document.querySelector('[data-room="kids"]').classList.add('active');
+    w.dispatchEvent(new w.CustomEvent('fortmen-townsquare:panorama-change'));
+    assert.equal(w.document.querySelector('.panorama-dimensions-value').textContent,'55 ft × 18 ft');
+});

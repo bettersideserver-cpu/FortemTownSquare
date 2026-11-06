@@ -51,121 +51,141 @@
                 "image": "A1_7_Balcony"
         }
 };
-    // MANUAL HOTSPOTS: edit x/y/z to position each marker inside its balcony 360.
+    // MANUAL HOTSPOTS: edit x/y angles in degrees and size for each marker.
     // These are placeholder positions. 'target' is the scene opened on click.
     // Add more objects to a scene's array for additional hotspots, or use [] for none.
-    // Edit target (scene ID), or href (page URL), and x/y/z for each button.
+    // Edit target (scene ID), or href (page URL), and x/y/size for each button.
+    // +X = right, -X = left; +Y = up, -Y = down, relative to the starting view.
+    // x=0, y=0 is centre. Larger size makes a larger icon (default 300).
     // #360- links are placeholders until you replace them.
     const balconyHotspots = {
         "restaurant": [
                 {
                         "label": "360° — Anchor Restaurant — Balcony",
                         "target": "A1_1_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "cosmetic": [
                 {
                         "label": "360° — Cosmetic-Hub — Balcony",
                         "target": "A1_2_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "bags": [
                 {
                         "label": "360° — Women Accessories — Balcony",
                         "target": "A1_7_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "miniso": [
                 {
                         "label": "360° — Miniso — Balcony",
                         "target": "A1_6_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "western": [
                 {
                         "label": "360° — Women Western wear — Balcony",
                         "target": "A1_4_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "western_1": [
                 {
                         "label": "360° — Women Western wear2 — Balcony",
                         "target": "A1_5_Balcony",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "A1_1_Balcony": [
                 {
                         "label": "360° — Anchor Restaurant",
                         "target": "restaurant",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "A1_2_Balcony": [
                 {
                         "label": "360° — Cosmetic-Hub",
                         "target": "cosmetic",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "A1_4_Balcony": [
                 {
                         "label": "360° — Women Western wear",
                         "target": "western",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "A1_5_Balcony": [
                 {
                         "label": "360° — Women Western wear2",
                         "target": "western_1",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "A1_6_Balcony": [
                 {
                         "label": "360° — Miniso",
                         "target": "miniso",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ],
         "A1_7_Balcony": [
                 {
                         "label": "360° — Women Accessories",
                         "target": "bags",
-                        "x": 5000,
-                        "y": 0,
-                        "z": 0
+                        "x": 0.0,
+                        "y": 0.0,
+                        "size": 300.0
                 }
         ]
 };
+    // STARTING CAMERA for each interior and balcony (angles in degrees).
+    // x: +right / -left. y: +up / -down. 0,0 faces the original direction.
+    // fov: smaller = zoom in, larger = zoom out (30..120; default 100).
+    // These settings apply whenever the scene opens; hotspot positions stay independent.
+    const cameraViews = {
+        restaurant: { x: 0, y: 0, fov: 100 },
+        cosmetic: { x: 0, y: 0, fov: 100 },
+        bags: { x: 0, y: 0, fov: 100 },
+        miniso: { x: 0, y: 0, fov: 100 },
+        western: { x: 0, y: 0, fov: 100 },
+        western_1: { x: 0, y: 0, fov: 100 },
+        A1_1_Balcony: { x: 0, y: 0, fov: 100 },
+        A1_2_Balcony: { x: 0, y: 0, fov: 100 },
+        A1_4_Balcony: { x: 0, y: 0, fov: 100 },
+        A1_5_Balcony: { x: 0, y: 0, fov: 100 },
+        A1_6_Balcony: { x: 0, y: 0, fov: 100 },
+        A1_7_Balcony: { x: 0, y: 0, fov: 100 }
+    };
     const params = new URLSearchParams(location.search);
     const status = document.getElementById('tourStatus');
     const pills = [...document.querySelectorAll('.tour-pill[data-room]')];
@@ -260,10 +280,17 @@
         '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><circle cx="64" cy="64" r="59" fill="#2F4539" stroke="#d9c89f" stroke-width="3"/><text x="64" y="68" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="34" fill="white">360°</text><path d="M35 84 Q64 105 93 84 M84 84 H93 V93" fill="none" stroke="#d9c89f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     );
     for (const [room, hotspots] of Object.entries(balconyHotspots)) {
-        for (const { label, target, href, x, y, z } of hotspots) {
+        for (const { label, target, href, x = 0, y = 0, size = 300 } of hotspots) {
             if (!href && !hasScene(target)) continue;
-            const hotspot = new PANOLENS.Infospot(300, hotspotIcon);
-            hotspot.position.set(x, y, z);
+            const hotspot = new PANOLENS.Infospot(size, hotspotIcon);
+            const horizontal = x * Math.PI / 180;
+            const vertical = Math.max(-89, Math.min(89, y)) * Math.PI / 180;
+            const radius = 5000;
+            hotspot.position.set(
+                radius * Math.cos(vertical) * Math.cos(horizontal),
+                radius * Math.sin(vertical),
+                radius * Math.cos(vertical) * Math.sin(horizontal)
+            );
             hotspot.addHoverText(label);
             hotspot.addEventListener('click', () => {
                 if (href) { if (!href.startsWith('#360-')) location.href = href; }
@@ -279,8 +306,15 @@
         const panorama = panoramas[room];
         showStatus(panorama.loaded ? '' : `Loading ${scenes[room].name}…`);
         viewer.setPanorama(panorama);
-        viewer.tweenControlCenter(new THREE.Vector3(5000, 0, 0), 0);
-        viewer.camera.fov = 100;
+        const cameraView = cameraViews[room] || { x: 0, y: 0, fov: 100 };
+        const yaw = cameraView.x * Math.PI / 180;
+        const pitch = Math.max(-89, Math.min(89, cameraView.y)) * Math.PI / 180;
+        viewer.tweenControlCenter(new THREE.Vector3(
+            5000 * Math.cos(pitch) * Math.cos(yaw),
+            5000 * Math.sin(pitch),
+            5000 * Math.cos(pitch) * Math.sin(yaw)
+        ), 0);
+        viewer.camera.fov = Math.max(30, Math.min(120, cameraView.fov));
         viewer.camera.updateProjectionMatrix();
         document.getElementById('cardName').textContent = scenes[room].name;
         document.getElementById('roomInfoCard').classList.add('visible');
